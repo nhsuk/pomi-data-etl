@@ -8,4 +8,7 @@ function error(message) {
   console.error(message);
 }
 
-module.exports = { info, error };
+module.exports = {
+  info,
+  error,
+};
