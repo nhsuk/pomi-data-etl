@@ -1,5 +1,5 @@
 // from https://www.tomas-dvorak.cz/posts/nodejs-request-without-dependencies/
-function getUrl(url) {
+function apiRequest(url) {
   // return new pending promise
   return new Promise((resolve, reject) => {
     // select http or https module, depending on reqested url
@@ -22,4 +22,4 @@ function getUrl(url) {
   });
 }
 
-module.exports = getUrl;
+module.exports = apiRequest;
