@@ -9,6 +9,7 @@
     "coverage-upload": "cat ./coverage/lcov.info | coveralls",
     "istanbul": "NODE_ENV=test istanbul",
     "lint": "eslint --ext .js,.json .",
+    "lint-watch": "esw --watch .",
     "precommit": "npm run travis-checks",
     "prepush": "npm run travis-checks",
     "start": "node app.js",
@@ -41,5 +42,8 @@
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
     "nodemon": "^1.11.0"
+  },
+  "dependencies": {
+    "csv": "^1.1.1"
   }
 }
