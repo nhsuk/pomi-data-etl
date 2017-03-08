@@ -1,0 +1,45 @@
+{
+  "name": "pomi-data-etl",
+  "version": "0.1.0",
+  "description": "Patient Online Management Information processing",
+  "main": "app.js",
+  "scripts": {
+    "coverage-check": "istanbul check-coverage --config .istanbul.yml",
+    "coverage-generate": "npm run istanbul -- cover _mocha -- --recursive test/unit",
+    "coverage-upload": "cat ./coverage/lcov.info | coveralls",
+    "istanbul": "NODE_ENV=test istanbul",
+    "lint": "eslint --ext .js,.json .",
+    "precommit": "npm run travis-checks",
+    "prepush": "npm run travis-checks",
+    "start": "node app.js",
+    "test": "NODE_ENV=test mocha --recursive test/unit",
+    "test-watch": "npm run test -- --watch --reporter min",
+    "travis-checks": "npm run lint && npm run coverage-generate && npm run coverage-check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nhsuk/pomi-data-etl.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nhsuk/pomi-data-etl/issues"
+  },
+  "homepage": "https://github.com/nhsuk/pomi-data-etl#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "coveralls": "^2.12.0",
+    "eslint": "^3.10.1",
+    "eslint-config-airbnb": "^13.0.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-json": "^1.2.0",
+    "eslint-plugin-jsx-a11y": "^2.2.3",
+    "eslint-plugin-mocha": "^4.7.0",
+    "eslint-plugin-react": "^6.7.1",
+    "eslint-watch": "^2.1.14",
+    "husky": "^0.13.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.2.0",
+    "nodemon": "^1.11.0"
+  }
+}
