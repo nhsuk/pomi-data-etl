@@ -25,8 +25,9 @@ describe('app', () => {
   });
 
   it('should generate a file containing only the latest period for all GPs', function () {
-    // The process usually takes about half this time i.e. 60 seconds
-    this.timeout(120000);
+    // The process takes 60 seconds on a half decent connection
+    // Travis takes quite a bit longer, hence the 8 minute timeout
+    this.timeout(480000);
     return Promise
       .resolve(app())
       .then(() => {
