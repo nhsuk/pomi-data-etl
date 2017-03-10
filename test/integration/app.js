@@ -10,6 +10,9 @@ const CURRENT_RECORDS_FILE = constants.CURRENT_RECORDS_FILE;
 const OUTPUT_DIR = constants.OUTPUT_DIR;
 const POMI_FILE = constants.POMI_FILE;
 const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
+const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
+const SUPPLIER_HEADER = constants.HEADERS.SUPPLIER;
+const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
 
 describe('app', () => {
   before('delete files', () => {
@@ -40,13 +43,16 @@ describe('app', () => {
         const data = fs.readFileSync(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`);
 
         const records = parse(data);
+        const headerRecord = records.shift();
         const firstRecord = records.shift();
         const lastRecord = records.pop();
 
-        expect(firstRecord.length).to.be.equal(3);
+        expect(headerRecord.length).to.be.equal(3);
+        expect(headerRecord[0]).to.be.equal(PERIOD_END_HEADER);
+        expect(headerRecord[1]).to.be.equal(ODS_CODE_HEADER);
+        expect(headerRecord[2]).to.be.equal(SUPPLIER_HEADER);
         expect(lastRecord.length).to.be.equal(3);
         expect(firstRecord[0]).to.be.equal(lastRecord[0]);
       });
   });
 });
-

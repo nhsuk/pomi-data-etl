@@ -1,8 +1,8 @@
 const log = require('./app/lib/logger');
+const downloadFile = require('./app/lib/downloadFile');
 const removeColumns = require('./app/lib/removeColumns');
 const getLatestPeriod = require('./app/lib/getLatestPeriod');
 const removeOldRecords = require('./app/lib/removeOldRecords');
-const downloadFile = require('./app/lib/downloadFile');
 
 function handleError(err) {
   log.error('Processing failed', err);
@@ -22,4 +22,3 @@ function app() {
 }
 
 module.exports = app;
-

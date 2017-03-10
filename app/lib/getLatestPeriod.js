@@ -11,4 +11,3 @@ function getLatestPeriod(periods) {
 }
 
 module.exports = getLatestPeriod;
-

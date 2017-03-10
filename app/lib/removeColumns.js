@@ -12,7 +12,7 @@ const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
 const POMI_FILE = constants.POMI_FILE;
 
 const periods = new Set();
-let transformedCount = 0;
+let transformedCount = -1; // -1 to account for header record
 
 const transformData = transform((data) => {
   const periodEnd = data[1];
@@ -35,10 +35,9 @@ function removeColumns() {
       const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${POMI_FILE}`);
       const reducedPomiDataWriter =
         fs.createWriteStream(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`);
-      const parser = parse({ from: 2 });
 
       pomiDataReader
-        .pipe(parser)
+        .pipe(parse())
         .pipe(transformData)
         .pipe(stringify())
         .pipe(reducedPomiDataWriter);
