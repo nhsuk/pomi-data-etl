@@ -8,12 +8,17 @@ function handleError(err) {
   log.error('Processing failed', err);
 }
 
-Promise
-  .resolve(log.time('Downloading and transforming POMI data took'))
-  .then(downloadFile)
-  .then(removeColumns)
-  .then(getLatestPeriod)
-  .then(removeOldRecords)
-  .then(() => log.timeEnd('Downloading and transforming POMI data took'))
-  .catch(handleError);
+function app() {
+  log.info('Starting download and transformation of POMI data');
+  return Promise
+    .resolve(log.time('Downloading and transforming POMI data took'))
+    .then(downloadFile)
+    .then(removeColumns)
+    .then(getLatestPeriod)
+    .then(removeOldRecords)
+    .then(() => log.timeEnd('Downloading and transforming POMI data took'))
+    .catch(handleError);
+}
+
+module.exports = app;
 
