@@ -1,21 +1,19 @@
-const apiRequest = require('./app/lib/apiRequest');
-const fsHelper = require('./app/lib/fsHelper');
 const log = require('./app/lib/logger');
-
-const downloadFile = apiRequest('https://indicators.hscic.gov.uk/download/PHF10/Data/BOOK_CANCEL_APPOINTMENTS_POMI.csv');
+const removeColumns = require('./app/lib/removeColumns');
+const getLatestPeriod = require('./app/lib/getLatestPeriod');
+const removeOldRecords = require('./app/lib/removeOldRecords');
+const downloadFile = require('./app/lib/downloadFile');
 
 function handleError(err) {
-  log.info(`processing failed: ${err}`);
+  log.error('Processing failed', err);
 }
 
-function saveFile(data) {
-  console.timeEnd('POMI-download');
-  fsHelper.saveFileSync(data, 'pomi-data.csv');
-}
-
-console.time('POMI-download');
-
-downloadFile
-  .then(saveFile)
+Promise
+  .resolve(log.time('Downloading and transforming POMI data took'))
+  .then(downloadFile)
+  .then(removeColumns)
+  .then(getLatestPeriod)
+  .then(removeOldRecords)
+  .then(() => log.timeEnd('Downloading and transforming POMI data took'))
   .catch(handleError);
 

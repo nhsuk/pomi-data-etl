@@ -1,10 +1,9 @@
 const fs = require('fs');
 const log = require('./logger');
-
-const OUTPUT_DIR = './output';
+const constants = require('./constants');
 
 function getPath(filename) {
-  return `${OUTPUT_DIR}/${filename}`;
+  return `${constants.OUTPUT_DIR}/${filename}`;
 }
 
 function createDirIfMissing(path) {
@@ -14,7 +13,7 @@ function createDirIfMissing(path) {
 }
 
 function saveFileSync(content, filename) {
-  createDirIfMissing(OUTPUT_DIR);
+  createDirIfMissing(constants.OUTPUT_DIR);
   const path = getPath(filename);
   fs.writeFileSync(path, content, 'utf8');
   log.info(`${filename} saved`);
