@@ -10,14 +10,18 @@ const stringify = csv.stringify;
 const OUTPUT_DIR = constants.OUTPUT_DIR;
 const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
 const CURRENT_RECORDS_FILE = constants.CURRENT_RECORDS_FILE;
+const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
 let oldRecordCount = 0;
 
 function transformData(latestPeriod) {
   return transform((data) => {
-    if (data[0] === latestPeriod) {
+    const period = data[0];
+    if (period === latestPeriod) {
       currentRecordCount += 1;
+      return data;
+    } else if (period === PERIOD_END_HEADER) {
       return data;
     }
     oldRecordCount += 1;
