@@ -46,6 +46,7 @@
     "nodemon": "^1.11.0"
   },
   "dependencies": {
+    "bunyan": "^1.8.8",
     "csv": "^1.1.1"
   }
 }

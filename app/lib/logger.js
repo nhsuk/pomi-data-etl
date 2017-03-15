@@ -1,11 +1,13 @@
+const bunyan = require('bunyan');
+
+const log = bunyan.createLogger({ name: 'pomi-etl' });
+
 function info(message) {
-  // eslint-disable-next-line no-console
-  console.log(message);
+  log.info(message);
 }
 
 function error(message, err) {
-  // eslint-disable-next-line no-console
-  console.error(message, err);
+  log.error(message, err);
 }
 
 function time(message) {
