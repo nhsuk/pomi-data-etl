@@ -12,7 +12,7 @@
     "lint": "eslint --ext .js,.json .",
     "lint-watch": "esw --watch .",
     "precommit": "npm run git-hooks",
-    "prepush": "npm snyk -- test",
+    "prepush": "npm run snyk -- test",
     "snyk": "snyk",
     "start": "node runner.js",
     "test": "mocha --recursive test/unit",
