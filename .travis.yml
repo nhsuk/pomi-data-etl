@@ -3,6 +3,5 @@ node_js:
   - node
 
 script:
-  - npm run travis-checks
+  - npm run git-hooks
   - npm run coverage-upload
-
