@@ -9,11 +9,20 @@ function handleError(err) {
   log.error('Processing failed', err);
 }
 
+function startTimer() {
+  return new Promise((resolve, reject) => {
+    try {
+      log.info('Starting download and transformation of POMI data');
+      log.time('Downloading and transforming POMI data took');
+      resolve();
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
 function app() {
-  return Promise
-    .all([
-      log.info('Starting download and transformation of POMI data'),
-      log.time('Downloading and transforming POMI data took')])
+  return startTimer()
     .then(downloadFile)
     .then(removeColumns)
     .then(getLatestPeriod)
