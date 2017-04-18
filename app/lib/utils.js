@@ -1,6 +1,6 @@
 const constants = require('../../app/lib/constants');
 
-const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
+const PERIOD_END_HEADER = constants.POMI.HEADERS.PERIOD_END;
 
 function removeHeaderFromPeriods(periodSet) {
   const periods = [...periodSet];

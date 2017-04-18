@@ -6,15 +6,15 @@ const constants = require('../../app/lib/constants');
 
 const expect = chai.expect;
 
-const CURRENT_RECORDS_FILE = constants.CURRENT_RECORDS_FILE;
+const CURRENT_RECORDS_FILE = constants.POMI.CURRENT_RECORDS_FILE;
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const POMI_FILE = constants.POMI_FILE;
-const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
-const JSON_FILE = constants.JSON_FILE;
+const POMI_FILE = constants.POMI.CSV_FILE;
+const REDUCED_POMI_FILE = constants.POMI.REDUCED_FILE;
+const JSON_FILE = constants.POMI.JSON_FILE;
 
-const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
-const SUPPLIER_HEADER = constants.HEADERS.SUPPLIER;
-const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
+const PERIOD_END_HEADER = constants.POMI.HEADERS.PERIOD_END;
+const SUPPLIER_HEADER = constants.POMI.HEADERS.SUPPLIER;
+const ODS_CODE_HEADER = constants.POMI.HEADERS.ODS_CODE;
 
 describe('app', () => {
   before('delete files and run download process', function beforeTest() {

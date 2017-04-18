@@ -7,8 +7,8 @@ const parse = csv.parse;
 const transform = csv.transform;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const CURRENT_RECORDS_FILE = constants.CURRENT_RECORDS_FILE;
-const JSON_FILE = constants.JSON_FILE;
+const CURRENT_RECORDS_FILE = constants.POMI.CURRENT_RECORDS_FILE;
+const JSON_FILE = constants.POMI.JSON_FILE;
 
 function finishWritingJsonFile() {
   const fileSize = fs.statSync(`${OUTPUT_DIR}/${JSON_FILE}`).size;

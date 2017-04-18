@@ -9,11 +9,11 @@ function handleError(err) {
   log.error('Processing failed', err);
 }
 
-function startTimer() {
+function startTimer(msg, timerMsg) {
   return new Promise((resolve, reject) => {
     try {
-      log.info('Starting download and transformation of POMI data');
-      log.time('Downloading and transforming POMI data took');
+      log.info(msg);
+      log.time(timerMsg);
       resolve();
     } catch (err) {
       reject(err);
@@ -21,14 +21,20 @@ function startTimer() {
   });
 }
 
-function app() {
-  return startTimer()
-    .then(downloadFile)
+function downloadAndProcessPomi() {
+  const timerMsg = 'Downloading and transforming POMI data took';
+  return startTimer('Starting download and transformation of POMI data', timerMsg)
+    .then(downloadFile.pomi)
     .then(removeColumns)
     .then(getLatestPeriod)
     .then(removeOldRecords)
     .then(convertToJson)
-    .then(() => log.timeEnd('Downloading and transforming POMI data took'))
+    .then(() => log.timeEnd(timerMsg))
+    .catch(handleError);
+}
+
+function app() {
+  return downloadAndProcessPomi()
     .catch(handleError);
 }
 

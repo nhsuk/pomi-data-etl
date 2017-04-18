@@ -8,8 +8,8 @@ const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
-const POMI_FILE = constants.POMI_FILE;
+const REDUCED_FILE = constants.POMI.REDUCED_FILE;
+const POMI_CSV_FILE = constants.POMI.CSV_FILE;
 
 const periods = new Set();
 let transformedCount = -1; // -1 to account for header record
@@ -34,9 +34,9 @@ function removeColumns() {
   return new Promise((resolve, reject) => {
     try {
       log.time('Removing redundant columns took');
-      const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${POMI_FILE}`);
+      const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${POMI_CSV_FILE}`);
       const reducedPomiDataWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`);
+        fs.createWriteStream(`${OUTPUT_DIR}/${REDUCED_FILE}`);
 
       pomiDataReader
         .pipe(parse())

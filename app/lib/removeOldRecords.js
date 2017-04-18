@@ -8,9 +8,9 @@ const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
-const CURRENT_RECORDS_FILE = constants.CURRENT_RECORDS_FILE;
-const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
+const REDUCED_FILE = constants.POMI.REDUCED_FILE;
+const CURRENT_RECORDS_FILE = constants.POMI.CURRENT_RECORDS_FILE;
+const PERIOD_END_HEADER = constants.POMI.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
 let oldRecordCount = 0;
@@ -34,7 +34,7 @@ function removeOldRecords(latestPeriod) {
     try {
       log.time('Removing old records took');
       const reducedPomiDataReader =
-        fs.createReadStream(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`);
+        fs.createReadStream(`${OUTPUT_DIR}/${REDUCED_FILE}`);
       const currentRecordsWriter =
         fs.createWriteStream(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`);
 
