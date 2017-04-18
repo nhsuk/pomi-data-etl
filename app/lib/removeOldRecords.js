@@ -2,14 +2,13 @@ const fs = require('fs');
 const csv = require('csv');
 const log = require('./logger');
 const constants = require('./constants');
+const fileUtils = require('./fileUtils');
 
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const REDUCED_FILE = constants.POMI.REDUCED_FILE;
-const CURRENT_RECORDS_FILE = constants.POMI.CURRENT_RECORDS_FILE;
 const PERIOD_END_HEADER = constants.POMI.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
@@ -29,14 +28,15 @@ function transformData(latestPeriod) {
   });
 }
 
-function removeOldRecords(latestPeriod) {
+function removeOldRecords(latestPeriod, fileName) {
   return new Promise((resolve, reject) => {
+    const timerMsg = `Removing old records for ${fileName} took`;
     try {
-      log.time('Removing old records took');
+      log.time(timerMsg);
       const reducedPomiDataReader =
-        fs.createReadStream(`${OUTPUT_DIR}/${REDUCED_FILE}`);
+        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
       const currentRecordsWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`);
+        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileName)}`);
 
       reducedPomiDataReader
         .pipe(parse())
@@ -45,7 +45,7 @@ function removeOldRecords(latestPeriod) {
         .pipe(currentRecordsWriter);
 
       currentRecordsWriter.on('finish', () => {
-        log.timeEnd('Removing old records took');
+        log.timeEnd(timerMsg);
         log.info(`Current record count: ${currentRecordCount}`);
         log.info(`Old record count: ${oldRecordCount}`);
         resolve();
@@ -56,4 +56,15 @@ function removeOldRecords(latestPeriod) {
   });
 }
 
-module.exports = removeOldRecords;
+function pomi(latestPeriod) {
+  return removeOldRecords(latestPeriod, 'POMI');
+}
+
+function scripts(latestPeriod) {
+  return removeOldRecords(latestPeriod, 'SCRIPTS');
+}
+
+module.exports = {
+  pomi,
+  scripts,
+};

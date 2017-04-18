@@ -21,21 +21,31 @@ function startTimer(msg, timerMsg) {
   });
 }
 
-function downloadAndProcessPomi() {
-  const timerMsg = 'Downloading and transforming POMI data took';
-  return startTimer('Starting download and transformation of POMI data', timerMsg)
+function downloadAndProcessBookingSystem() {
+  const timerMsg = 'Downloading and transforming Booking System data took';
+  return startTimer('Starting download and transformation of Booking System data', timerMsg)
     .then(downloadFile.pomi)
-    .then(removeColumns)
+    .then(removeColumns.pomi)
     .then(getLatestPeriod)
-    .then(removeOldRecords)
-    .then(convertToJson)
+    .then(removeOldRecords.pomi)
+    .then(convertToJson.pomi)
     .then(() => log.timeEnd(timerMsg))
     .catch(handleError);
 }
 
-function app() {
-  return downloadAndProcessPomi()
+function downloadAndProcessRepeatScripts() {
+  const timerMsg = 'Download and transforming Online Repeat Prescriptions data took';
+  return startTimer('Starting download and transform of Repeat Prescription data', timerMsg)
+    .then(downloadFile.scripts)
+    .then(removeColumns.scripts)
+    .then(getLatestPeriod)
+    .then(removeOldRecords.scripts)
+    .then(convertToJson.scripts)
+    .then(() => log.timeEnd(timerMsg))
     .catch(handleError);
 }
 
-module.exports = app;
+module.exports = {
+  downloadAndProcessBookingSystem,
+  downloadAndProcessRepeatScripts,
+};

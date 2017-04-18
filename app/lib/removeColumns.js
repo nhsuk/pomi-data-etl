@@ -2,14 +2,13 @@ const fs = require('fs');
 const csv = require('csv');
 const log = require('./logger');
 const constants = require('./constants');
+const fileUtils = require('./fileUtils');
 
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const REDUCED_FILE = constants.POMI.REDUCED_FILE;
-const POMI_CSV_FILE = constants.POMI.CSV_FILE;
 
 const periods = new Set();
 let transformedCount = -1; // -1 to account for header record
@@ -30,13 +29,14 @@ function transformData() {
   });
 }
 
-function removeColumns() {
+function removeColumns(fileName) {
   return new Promise((resolve, reject) => {
+    const timerMsg = `Removing redundant columns from ${fileName} took`;
     try {
-      log.time('Removing redundant columns took');
-      const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${POMI_CSV_FILE}`);
+      log.time(timerMsg);
+      const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileName)}`);
       const reducedPomiDataWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${REDUCED_FILE}`);
+        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
 
       pomiDataReader
         .pipe(parse())
@@ -45,8 +45,8 @@ function removeColumns() {
         .pipe(reducedPomiDataWriter);
 
       reducedPomiDataWriter.on('finish', () => {
-        log.timeEnd('Removing redundant columns took');
-        log.info(`Records processed for column removal: ${transformedCount}`);
+        log.timeEnd(timerMsg);
+        log.info(`Records processed for ${fileName} data column removal: ${transformedCount}`);
         resolve(periods);
       });
     } catch (err) {
@@ -55,5 +55,15 @@ function removeColumns() {
   });
 }
 
-module.exports = removeColumns;
+function pomi() {
+  return removeColumns('POMI');
+}
 
+function scripts() {
+  return removeColumns('SCRIPTS');
+}
+
+module.exports = {
+  pomi,
+  scripts,
+};
