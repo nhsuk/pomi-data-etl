@@ -9,7 +9,7 @@ const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const PERIOD_END_HEADER = constants.BOOKING.HEADERS.PERIOD_END;
+const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
 let oldRecordCount = 0;

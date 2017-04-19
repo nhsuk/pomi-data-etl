@@ -3,7 +3,7 @@ const utils = require('../../app/lib/utils');
 const constants = require('../../app/lib/constants');
 
 const expect = chai.expect;
-const PERIOD_END_HEADER = constants.BOOKING.HEADERS.PERIOD_END;
+const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
 
 describe('utils', () => {
   it('should return the most recent date', () => {

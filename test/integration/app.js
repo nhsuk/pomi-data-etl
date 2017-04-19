@@ -13,9 +13,9 @@ const BOOKING_FILE = fileUtils.getSimpleFileName('booking');
 const REDUCED_BOOKING_FILE = fileUtils.getReducedFileName('BOOKING');
 const JSON_FILE = fileUtils.getJsonFileName('BOOKING');
 
-const PERIOD_END_HEADER = constants.BOOKING.HEADERS.PERIOD_END;
-const SUPPLIER_HEADER = constants.BOOKING.HEADERS.SUPPLIER;
-const ODS_CODE_HEADER = constants.BOOKING.HEADERS.ODS_CODE;
+const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
+const SUPPLIER_HEADER = constants.HEADERS.SUPPLIER;
+const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
 
 describe('app', () => {
   describe('booking system data', () => {
