@@ -2,29 +2,29 @@ const fs = require('fs');
 const csv = require('csv');
 const log = require('./logger');
 const constants = require('./constants');
+const fileUtils = require('./fileUtils');
 
 const parse = csv.parse;
 const transform = csv.transform;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const CURRENT_RECORDS_FILE = constants.CURRENT_RECORDS_FILE;
-const JSON_FILE = constants.JSON_FILE;
 
-function finishWritingJsonFile() {
-  const fileSize = fs.statSync(`${OUTPUT_DIR}/${JSON_FILE}`).size;
+function finishWritingJsonFile(fileName) {
+  const fileSize = fs.statSync(`${OUTPUT_DIR}/${fileUtils.getJsonFileName(fileName)}`).size;
   const pos = fileSize - 1; // account for final ','
-  const fd = fs.openSync(`${OUTPUT_DIR}/${JSON_FILE}`, 'r+');
+  const fd = fs.openSync(`${OUTPUT_DIR}/${fileUtils.getJsonFileName(fileName)}`, 'r+');
   fs.writeSync(fd, ']', pos, 'utf8');
 }
 
-function convertToJson() {
+function convertToJson(fileName) {
   return new Promise((resolve, reject) => {
+    const timerMsg = `Converting CSV to JSON for ${fileName} took`;
     try {
-      log.time('Converting CSV to JSON took');
+      log.time(timerMsg);
       const csvReader =
-        fs.createReadStream(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`);
+        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileName)}`);
       const jsonWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${JSON_FILE}`);
+        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getJsonFileName(fileName)}`);
 
       jsonWriter.write('[');
 
@@ -34,8 +34,8 @@ function convertToJson() {
         .pipe(jsonWriter);
 
       jsonWriter.on('finish', () => {
-        finishWritingJsonFile();
-        log.timeEnd('Converting CSV to JSON took');
+        finishWritingJsonFile(fileName);
+        log.timeEnd(timerMsg);
         resolve();
       });
     } catch (err) {
@@ -44,4 +44,15 @@ function convertToJson() {
   });
 }
 
-module.exports = convertToJson;
+function booking() {
+  return convertToJson('BOOKING');
+}
+
+function scripts() {
+  return convertToJson('SCRIPTS');
+}
+
+module.exports = {
+  booking,
+  scripts,
+};

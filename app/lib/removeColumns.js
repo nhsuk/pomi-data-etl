@@ -2,14 +2,13 @@ const fs = require('fs');
 const csv = require('csv');
 const log = require('./logger');
 const constants = require('./constants');
+const fileUtils = require('./fileUtils');
 
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const REDUCED_POMI_FILE = constants.REDUCED_POMI_FILE;
-const POMI_FILE = constants.POMI_FILE;
 
 const periods = new Set();
 let transformedCount = -1; // -1 to account for header record
@@ -30,23 +29,25 @@ function transformData() {
   });
 }
 
-function removeColumns() {
+function removeColumns(fileName) {
   return new Promise((resolve, reject) => {
+    const timerMsg = `Removing redundant columns from ${fileName} took`;
     try {
-      log.time('Removing redundant columns took');
-      const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${POMI_FILE}`);
-      const reducedPomiDataWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`);
+      log.time(timerMsg);
+      const reader =
+        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileName)}`);
+      const writer =
+        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
 
-      pomiDataReader
+      reader
         .pipe(parse())
         .pipe(transformData())
         .pipe(stringify())
-        .pipe(reducedPomiDataWriter);
+        .pipe(writer);
 
-      reducedPomiDataWriter.on('finish', () => {
-        log.timeEnd('Removing redundant columns took');
-        log.info(`Records processed for column removal: ${transformedCount}`);
+      writer.on('finish', () => {
+        log.timeEnd(timerMsg);
+        log.info(`Records processed for ${fileName} data column removal: ${transformedCount}`);
         resolve(periods);
       });
     } catch (err) {
@@ -55,5 +56,15 @@ function removeColumns() {
   });
 }
 
-module.exports = removeColumns;
+function booking() {
+  return removeColumns('BOOKING');
+}
 
+function scripts() {
+  return removeColumns('SCRIPTS');
+}
+
+module.exports = {
+  booking,
+  scripts,
+};
