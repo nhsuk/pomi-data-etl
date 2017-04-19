@@ -34,17 +34,18 @@ function removeColumns(fileName) {
     const timerMsg = `Removing redundant columns from ${fileName} took`;
     try {
       log.time(timerMsg);
-      const pomiDataReader = fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileName)}`);
-      const reducedPomiDataWriter =
+      const reader =
+        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileName)}`);
+      const writer =
         fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
 
-      pomiDataReader
+      reader
         .pipe(parse())
         .pipe(transformData())
         .pipe(stringify())
-        .pipe(reducedPomiDataWriter);
+        .pipe(writer);
 
-      reducedPomiDataWriter.on('finish', () => {
+      writer.on('finish', () => {
         log.timeEnd(timerMsg);
         log.info(`Records processed for ${fileName} data column removal: ${transformedCount}`);
         resolve(periods);
@@ -55,8 +56,8 @@ function removeColumns(fileName) {
   });
 }
 
-function pomi() {
-  return removeColumns('POMI');
+function booking() {
+  return removeColumns('BOOKING');
 }
 
 function scripts() {
@@ -64,6 +65,6 @@ function scripts() {
 }
 
 module.exports = {
-  pomi,
+  booking,
   scripts,
 };

@@ -7,15 +7,15 @@ const fileUtils = require('../../app/lib/fileUtils');
 
 const expect = chai.expect;
 
-const CURRENT_RECORDS_FILE = fileUtils.getCurrentRecordsFileName('POMI');
+const CURRENT_RECORDS_FILE = fileUtils.getCurrentRecordsFileName('BOOKING');
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const POMI_FILE = 'pomi.csv';
-const REDUCED_POMI_FILE = fileUtils.getReducedFileName('POMI');
-const JSON_FILE = fileUtils.getJsonFileName('POMI');
+const BOOKING_FILE = fileUtils.getSimpleFileName('booking');
+const REDUCED_BOOKING_FILE = fileUtils.getReducedFileName('BOOKING');
+const JSON_FILE = fileUtils.getJsonFileName('BOOKING');
 
-const PERIOD_END_HEADER = constants.POMI.HEADERS.PERIOD_END;
-const SUPPLIER_HEADER = constants.POMI.HEADERS.SUPPLIER;
-const ODS_CODE_HEADER = constants.POMI.HEADERS.ODS_CODE;
+const PERIOD_END_HEADER = constants.BOOKING.HEADERS.PERIOD_END;
+const SUPPLIER_HEADER = constants.BOOKING.HEADERS.SUPPLIER;
+const ODS_CODE_HEADER = constants.BOOKING.HEADERS.ODS_CODE;
 
 describe('app', () => {
   describe('booking system data', () => {
@@ -26,28 +26,28 @@ describe('app', () => {
       if (fs.existsSync(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`)) {
         fs.unlinkSync(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`);
       }
-      if (fs.existsSync(`${OUTPUT_DIR}/${POMI_FILE}`)) {
-        fs.unlinkSync(`${OUTPUT_DIR}/${POMI_FILE}`);
+      if (fs.existsSync(`${OUTPUT_DIR}/${BOOKING_FILE}`)) {
+        fs.unlinkSync(`${OUTPUT_DIR}/${BOOKING_FILE}`);
       }
-      if (fs.existsSync(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`)) {
-        fs.unlinkSync(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`);
+      if (fs.existsSync(`${OUTPUT_DIR}/${REDUCED_BOOKING_FILE}`)) {
+        fs.unlinkSync(`${OUTPUT_DIR}/${REDUCED_BOOKING_FILE}`);
       }
 
       return Promise.resolve(app.downloadAndProcessBookingSystem());
     });
 
-    it('should download the pomi data file', () => {
+    it('should download the booking data file', () => {
       fs.readdirSync(OUTPUT_DIR, (err, files) => {
-        expect(files).to.include(POMI_FILE);
+        expect(files).to.include(BOOKING_FILE);
       });
     });
 
     it('should generate an intermediate file containing only the relevant 3 columns, with a header', () => {
       fs.readdirSync(OUTPUT_DIR, (err, files) => {
-        expect(files).to.include(REDUCED_POMI_FILE);
+        expect(files).to.include(REDUCED_BOOKING_FILE);
       });
 
-      const data = fs.readFileSync(`${OUTPUT_DIR}/${REDUCED_POMI_FILE}`);
+      const data = fs.readFileSync(`${OUTPUT_DIR}/${REDUCED_BOOKING_FILE}`);
 
       const records = parse(data);
       const headerRecord = records.shift();

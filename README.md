@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/pomi-data-etl/badge.svg?branch=master)](https://coveralls.io/github/nhsuk/pomi-data-etl?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/nhsuk/pomi-data-etl/badge.svg)](https://snyk.io/test/github/nhsuk/pomi-data-etl)
 
-The application downloads a number of data sets, specifically collected under the label of
+The application downloads a number of data sets available under POMI collection.
 [Patient Online Management Information (POMI)](http://content.digital.nhs.uk/pomi)
 from the NHS Digital [indicator portal](https://indicators.hscic.gov.uk/)
 

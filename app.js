@@ -24,11 +24,11 @@ function startTimer(msg, timerMsg) {
 function downloadAndProcessBookingSystem() {
   const timerMsg = 'Downloading and transforming Booking System data took';
   return startTimer('Starting download and transformation of Booking System data', timerMsg)
-    .then(downloadFile.pomi)
-    .then(removeColumns.pomi)
+    .then(downloadFile.booking)
+    .then(removeColumns.booking)
     .then(getLatestPeriod)
-    .then(removeOldRecords.pomi)
-    .then(convertToJson.pomi)
+    .then(removeOldRecords.booking)
+    .then(convertToJson.booking)
     .then(() => log.timeEnd(timerMsg))
     .catch(handleError);
 }

@@ -14,9 +14,9 @@ function downloadFile(fileName, downloadLocation) {
     });
 }
 
-function pomi() {
-  const downloadLocation = constants.POMI.DOWNLOAD_LOCATION;
-  return downloadFile('POMI', downloadLocation);
+function booking() {
+  const downloadLocation = constants.BOOKING.DOWNLOAD_LOCATION;
+  return downloadFile('BOOKING', downloadLocation);
 }
 
 function scripts() {
@@ -25,6 +25,6 @@ function scripts() {
 }
 
 module.exports = {
-  pomi,
+  booking,
   scripts,
 };

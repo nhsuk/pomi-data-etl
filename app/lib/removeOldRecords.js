@@ -9,7 +9,7 @@ const transform = csv.transform;
 const stringify = csv.stringify;
 
 const OUTPUT_DIR = constants.OUTPUT_DIR;
-const PERIOD_END_HEADER = constants.POMI.HEADERS.PERIOD_END;
+const PERIOD_END_HEADER = constants.BOOKING.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
 let oldRecordCount = 0;
@@ -33,12 +33,12 @@ function removeOldRecords(latestPeriod, fileName) {
     const timerMsg = `Removing old records for ${fileName} took`;
     try {
       log.time(timerMsg);
-      const reducedPomiDataReader =
+      const reader =
         fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
       const currentRecordsWriter =
         fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileName)}`);
 
-      reducedPomiDataReader
+      reader
         .pipe(parse())
         .pipe(transformData(latestPeriod))
         .pipe(stringify())
@@ -56,8 +56,8 @@ function removeOldRecords(latestPeriod, fileName) {
   });
 }
 
-function pomi(latestPeriod) {
-  return removeOldRecords(latestPeriod, 'POMI');
+function booking(latestPeriod) {
+  return removeOldRecords(latestPeriod, 'BOOKING');
 }
 
 function scripts(latestPeriod) {
@@ -65,6 +65,6 @@ function scripts(latestPeriod) {
 }
 
 module.exports = {
-  pomi,
+  booking,
   scripts,
 };

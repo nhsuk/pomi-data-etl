@@ -44,8 +44,8 @@ function convertToJson(fileName) {
   });
 }
 
-function pomi() {
-  return convertToJson('POMI');
+function booking() {
+  return convertToJson('BOOKING');
 }
 
 function scripts() {
@@ -53,6 +53,6 @@ function scripts() {
 }
 
 module.exports = {
-  pomi,
+  booking,
   scripts,
 };
