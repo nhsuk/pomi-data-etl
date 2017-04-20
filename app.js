@@ -9,43 +9,30 @@ function handleError(err) {
   log.error('Processing failed', err);
 }
 
-function startTimer(msg, timerMsg) {
+function startTimer(request, timerMsg) {
   return new Promise((resolve, reject) => {
     try {
-      log.info(msg);
+      log.info(`Starting download and transformation of ${request.type} data`);
       log.time(timerMsg);
-      resolve();
+      resolve(request);
     } catch (err) {
       reject(err);
     }
   });
 }
 
-function downloadAndProcessBookingSystem() {
-  const timerMsg = 'Downloading and transforming Booking System data took';
-  return startTimer('Starting download and transformation of Booking System data', timerMsg)
-    .then(downloadFile.booking)
-    .then(removeColumns.booking)
+function downloadAndProcessFile(request) {
+  const timerMsg = `Download and transforming ${request.type} data took`;
+  return startTimer(request, timerMsg)
+    .then(downloadFile)
+    .then(removeColumns)
     .then(getLatestPeriod)
-    .then(removeOldRecords.booking)
-    .then(convertToJson.booking)
-    .then(() => log.timeEnd(timerMsg))
-    .catch(handleError);
-}
-
-function downloadAndProcessRepeatScripts() {
-  const timerMsg = 'Download and transforming Online Repeat Prescriptions data took';
-  return startTimer('Starting download and transform of Repeat Prescription data', timerMsg)
-    .then(downloadFile.scripts)
-    .then(removeColumns.scripts)
-    .then(getLatestPeriod)
-    .then(removeOldRecords.scripts)
-    .then(convertToJson.scripts)
+    .then(removeOldRecords)
+    .then(convertToJson)
     .then(() => log.timeEnd(timerMsg))
     .catch(handleError);
 }
 
 module.exports = {
-  downloadAndProcessBookingSystem,
-  downloadAndProcessRepeatScripts,
+  downloadAndProcessFile,
 };

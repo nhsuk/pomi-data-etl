@@ -29,15 +29,16 @@ function transformData() {
   });
 }
 
-function removeColumns(fileName) {
+function removeColumns(request) {
+  const fileType = request.type;
   return new Promise((resolve, reject) => {
-    const timerMsg = `Removing redundant columns from ${fileName} took`;
+    const timerMsg = `Removing redundant columns from ${fileType} took`;
     try {
       log.time(timerMsg);
       const reader =
-        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileName)}`);
+        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileType)}`);
       const writer =
-        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
+        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileType)}`);
 
       reader
         .pipe(parse())
@@ -47,8 +48,8 @@ function removeColumns(fileName) {
 
       writer.on('finish', () => {
         log.timeEnd(timerMsg);
-        log.info(`Records processed for ${fileName} data column removal: ${transformedCount}`);
-        resolve(periods);
+        log.info(`Records processed for ${fileType} data column removal: ${transformedCount}`);
+        resolve({ periods, request });
       });
     } catch (err) {
       reject(err);
@@ -56,15 +57,4 @@ function removeColumns(fileName) {
   });
 }
 
-function booking() {
-  return removeColumns('BOOKING');
-}
-
-function scripts() {
-  return removeColumns('SCRIPTS');
-}
-
-module.exports = {
-  booking,
-  scripts,
-};
+module.exports = removeColumns;

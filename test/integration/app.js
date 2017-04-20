@@ -20,6 +20,7 @@ const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
 describe('app', () => {
   describe('booking system data', () => {
     before('delete files and run download process', function beforeTest() {
+      const bookingDownloadUrl = 'https://indicators.hscic.gov.uk/download/PHF10/Data/BOOK_CANCEL_APPOINTMENTS_POMI.csv';
       // The process takes 60 seconds on a half decent connection
       // Travis takes quite a bit longer, hence the 8 minute timeout
       this.timeout(480000);
@@ -33,7 +34,7 @@ describe('app', () => {
         fs.unlinkSync(`${OUTPUT_DIR}/${REDUCED_BOOKING_FILE}`);
       }
 
-      return Promise.resolve(app.downloadAndProcessBookingSystem());
+      return Promise.resolve(app.downloadAndProcessFile({ type: 'BOOKING', url: bookingDownloadUrl }));
     });
 
     it('should download the booking data file', () => {

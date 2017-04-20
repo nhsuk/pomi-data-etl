@@ -1,4 +1,7 @@
 const app = require('./app');
 
-app.downloadAndProcessBookingSystem();
-app.downloadAndProcessRepeatScripts();
+const bookingDownloadUrl = 'https://indicators.hscic.gov.uk/download/PHF10/Data/BOOK_CANCEL_APPOINTMENTS_POMI.csv';
+const scriptsDownloadUrl = 'https://indicators.hscic.gov.uk/download/PHF10/Data/ORDER_REPEAT_PRESCRIPTION_POMI.csv';
+
+app.downloadAndProcessFile({ type: 'SCRIPTS', url: scriptsDownloadUrl });
+app.downloadAndProcessFile({ type: 'BOOKING', url: bookingDownloadUrl });

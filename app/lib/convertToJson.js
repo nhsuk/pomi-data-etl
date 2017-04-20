@@ -16,25 +16,26 @@ function finishWritingJsonFile(fileName) {
   fs.writeSync(fd, ']', pos, 'utf8');
 }
 
-function convertToJson(fileName) {
+function convertToJson(data) {
   return new Promise((resolve, reject) => {
-    const timerMsg = `Converting CSV to JSON for ${fileName} took`;
+    const fileType = data.request.type;
+    const timerMsg = `Converting CSV to JSON for ${fileType} took`;
     try {
       log.time(timerMsg);
       const csvReader =
-        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileName)}`);
+        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileType)}`);
       const jsonWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getJsonFileName(fileName)}`);
+        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getJsonFileName(fileType)}`);
 
       jsonWriter.write('[');
 
       csvReader
         .pipe(parse({ columns: true }))
-        .pipe(transform(data => `${JSON.stringify(data)},`))
+        .pipe(transform(parsedData => `${JSON.stringify(parsedData)},`))
         .pipe(jsonWriter);
 
       jsonWriter.on('finish', () => {
-        finishWritingJsonFile(fileName);
+        finishWritingJsonFile(fileType);
         log.timeEnd(timerMsg);
         resolve();
       });
@@ -44,15 +45,4 @@ function convertToJson(fileName) {
   });
 }
 
-function booking() {
-  return convertToJson('BOOKING');
-}
-
-function scripts() {
-  return convertToJson('SCRIPTS');
-}
-
-module.exports = {
-  booking,
-  scripts,
-};
+module.exports = convertToJson;
