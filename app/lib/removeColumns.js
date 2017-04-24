@@ -1,14 +1,11 @@
 const fs = require('fs');
 const csv = require('csv');
 const log = require('./logger');
-const constants = require('./constants');
 const fileUtils = require('./fileUtils');
 
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
-
-const OUTPUT_DIR = constants.OUTPUT_DIR;
 
 const periods = new Set();
 let transformedCount = -1; // -1 to account for header record
@@ -30,15 +27,17 @@ function transformData() {
 }
 
 function removeColumns(request) {
+  const outputDir = request.OUTPUT_DIR;
   const fileType = request.type;
+
   return new Promise((resolve, reject) => {
     const timerMsg = `Removing redundant columns from ${fileType} took`;
     try {
       log.time(timerMsg);
       const reader =
-        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileType)}`);
+        fs.createReadStream(`${outputDir}/${fileUtils.getSimpleFileName(fileType)}`);
       const writer =
-        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileType)}`);
+        fs.createWriteStream(`${outputDir}/${fileUtils.getReducedFileName(fileType)}`);
 
       reader
         .pipe(parse())

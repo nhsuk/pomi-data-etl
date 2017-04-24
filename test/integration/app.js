@@ -7,39 +7,35 @@ const fileUtils = require('../../app/lib/fileUtils');
 
 const expect = chai.expect;
 
-const CURRENT_RECORDS_FILE = fileUtils.getCurrentRecordsFileName('BOOKING');
-const OUTPUT_DIR = constants.OUTPUT_DIR;
-const BOOKING_FILE = fileUtils.getSimpleFileName('booking');
-const REDUCED_BOOKING_FILE = fileUtils.getReducedFileName('BOOKING');
-const JSON_FILE = fileUtils.getJsonFileName('BOOKING');
+const OUTPUT_DIR = 'temp';
+const FILE_NAME = 'TEST-POMI';
+const CURRENT_RECORDS_FILE = fileUtils.getCurrentRecordsFileName(FILE_NAME);
+const JSON_FILE = fileUtils.getJsonFileName(FILE_NAME);
+const REDUCED_BOOKING_FILE = fileUtils.getReducedFileName(FILE_NAME);
+const SIMPLE_FILE_NAME = fileUtils.getSimpleFileName(FILE_NAME);
 
 const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
 const SUPPLIER_HEADER = constants.HEADERS.SUPPLIER;
 const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
 
+const testFilePath = `test/resources/${SIMPLE_FILE_NAME}`;
+
 describe('app', () => {
-  describe('booking system data', () => {
-    before('delete files and run download process', function beforeTest() {
-      const bookingDownloadUrl = 'https://indicators.hscic.gov.uk/download/PHF10/Data/BOOK_CANCEL_APPOINTMENTS_POMI.csv';
-      // The process takes 60 seconds on a half decent connection
-      // Travis takes quite a bit longer, hence the 8 minute timeout
-      this.timeout(480000);
-      if (fs.existsSync(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`)) {
-        fs.unlinkSync(`${OUTPUT_DIR}/${CURRENT_RECORDS_FILE}`);
-      }
-      if (fs.existsSync(`${OUTPUT_DIR}/${BOOKING_FILE}`)) {
-        fs.unlinkSync(`${OUTPUT_DIR}/${BOOKING_FILE}`);
-      }
-      if (fs.existsSync(`${OUTPUT_DIR}/${REDUCED_BOOKING_FILE}`)) {
-        fs.unlinkSync(`${OUTPUT_DIR}/${REDUCED_BOOKING_FILE}`);
+  describe('processing of data from locally held file', () => {
+    before('delete files and run process', () => {
+      if (fs.existsSync(`${OUTPUT_DIR}/${testFilePath}`)) {
+        fs.unlinkSync(`${OUTPUT_DIR}/${testFilePath}`);
       }
 
-      return Promise.resolve(app.downloadAndProcessFile({ type: 'BOOKING', url: bookingDownloadUrl }));
+      return Promise.resolve(
+        app.downloadAndProcessFile(
+          { type: FILE_NAME, path: testFilePath, OUTPUT_DIR }
+        ));
     });
 
-    it('should download the booking data file', () => {
+    it('should save the original data file', () => {
       fs.readdirSync(OUTPUT_DIR, (err, files) => {
-        expect(files).to.include(BOOKING_FILE);
+        expect(files).to.include(testFilePath);
       });
     });
 

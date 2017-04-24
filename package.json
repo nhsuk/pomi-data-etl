@@ -15,8 +15,7 @@
     "prepush": "npm run snyk -- test",
     "snyk": "snyk",
     "start": "node runner.js",
-    "test": "mocha --recursive test/unit",
-    "test-integration": "mocha --recursive test/integration",
+    "test": "mocha --recursive",
     "test-watch": "npm run test -- --watch --reporter min"
   },
   "repository": {

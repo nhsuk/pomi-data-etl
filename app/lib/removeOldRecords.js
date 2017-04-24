@@ -7,8 +7,6 @@ const fileUtils = require('./fileUtils');
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
-
-const OUTPUT_DIR = constants.OUTPUT_DIR;
 const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
@@ -30,14 +28,15 @@ function transformData(latestPeriod) {
 
 function removeOldRecords(data) {
   return new Promise((resolve, reject) => {
+    const outputDir = data.request.OUTPUT_DIR;
     const fileType = data.request.type;
     const timerMsg = `Removing old records for ${fileType} took`;
     try {
       log.time(timerMsg);
       const reader =
-        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileType)}`);
+        fs.createReadStream(`${outputDir}/${fileUtils.getReducedFileName(fileType)}`);
       const currentRecordsWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileType)}`);
+        fs.createWriteStream(`${outputDir}/${fileUtils.getCurrentRecordsFileName(fileType)}`);
 
       reader
         .pipe(parse())
