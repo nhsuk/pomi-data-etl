@@ -9,10 +9,11 @@ function createDirIfMissing(path) {
   }
 }
 
-function saveFileSync(content, fileName, outputDir = constants.OUTPUT_DIR) {
+function saveFileSync(data, outputDir = constants.OUTPUT_DIR) {
+  const fileName = data.request.type;
   const path = `${outputDir}/${fileUtils.getSimpleFileName(fileName)}`;
   createDirIfMissing(path.split('/')[0]);
-  fs.writeFileSync(path, content, 'utf8');
+  fs.writeFileSync(path, data.body, 'utf8');
   log.info(`${path} saved`);
 }
 

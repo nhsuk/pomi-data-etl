@@ -31,8 +31,10 @@ the form of
   "Supplier": "${supplier}"
 }
 ```
-Where `${supplier}` is one of
-`["EMIS","EMIS (I)","INPS","INPS (I)","Informatica","Microtest","NK","TPP"]`
+Where `${supplier}` will be one of the suppliers listed below
+`["EMIS","INPS","Informatica","Microtest","NK","TPP"]`. Or one of these values
+with an `(I)` appended e.g. `EMIS (I)`. The addition of `(I)` represents a GP
+that is now using the Informatica system.
 
 Note: The list above was created by running
 `jq -c '[.[].Supplier] | unique ' output/pomi.json`

@@ -7,8 +7,6 @@ const fileUtils = require('./fileUtils');
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
-
-const OUTPUT_DIR = constants.OUTPUT_DIR;
 const PERIOD_END_HEADER = constants.HEADERS.PERIOD_END;
 
 let currentRecordCount = 0;
@@ -28,19 +26,21 @@ function transformData(latestPeriod) {
   });
 }
 
-function removeOldRecords(latestPeriod, fileName) {
+function removeOldRecords(data) {
   return new Promise((resolve, reject) => {
-    const timerMsg = `Removing old records for ${fileName} took`;
+    const outputDir = data.request.OUTPUT_DIR;
+    const fileType = data.request.type;
+    const timerMsg = `Removing old records for ${fileType} took`;
     try {
       log.time(timerMsg);
       const reader =
-        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
+        fs.createReadStream(`${outputDir}/${fileUtils.getReducedFileName(fileType)}`);
       const currentRecordsWriter =
-        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getCurrentRecordsFileName(fileName)}`);
+        fs.createWriteStream(`${outputDir}/${fileUtils.getCurrentRecordsFileName(fileType)}`);
 
       reader
         .pipe(parse())
-        .pipe(transformData(latestPeriod))
+        .pipe(transformData(data.latestPeriod))
         .pipe(stringify())
         .pipe(currentRecordsWriter);
 
@@ -48,7 +48,7 @@ function removeOldRecords(latestPeriod, fileName) {
         log.timeEnd(timerMsg);
         log.info(`Current record count: ${currentRecordCount}`);
         log.info(`Old record count: ${oldRecordCount}`);
-        resolve();
+        resolve({ request: data.request });
       });
     } catch (err) {
       reject(err);
@@ -56,15 +56,4 @@ function removeOldRecords(latestPeriod, fileName) {
   });
 }
 
-function booking(latestPeriod) {
-  return removeOldRecords(latestPeriod, 'BOOKING');
-}
-
-function scripts(latestPeriod) {
-  return removeOldRecords(latestPeriod, 'SCRIPTS');
-}
-
-module.exports = {
-  booking,
-  scripts,
-};
+module.exports = removeOldRecords;

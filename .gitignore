@@ -1,5 +1,6 @@
 # Generated output
 output/
+temp/
 
 # Logs
 logs

@@ -1,14 +1,11 @@
 const fs = require('fs');
 const csv = require('csv');
 const log = require('./logger');
-const constants = require('./constants');
 const fileUtils = require('./fileUtils');
 
 const parse = csv.parse;
 const transform = csv.transform;
 const stringify = csv.stringify;
-
-const OUTPUT_DIR = constants.OUTPUT_DIR;
 
 const periods = new Set();
 let transformedCount = -1; // -1 to account for header record
@@ -29,15 +26,18 @@ function transformData() {
   });
 }
 
-function removeColumns(fileName) {
+function removeColumns(request) {
+  const outputDir = request.OUTPUT_DIR;
+  const fileType = request.type;
+
   return new Promise((resolve, reject) => {
-    const timerMsg = `Removing redundant columns from ${fileName} took`;
+    const timerMsg = `Removing redundant columns from ${fileType} took`;
     try {
       log.time(timerMsg);
       const reader =
-        fs.createReadStream(`${OUTPUT_DIR}/${fileUtils.getSimpleFileName(fileName)}`);
+        fs.createReadStream(`${outputDir}/${fileUtils.getSimpleFileName(fileType)}`);
       const writer =
-        fs.createWriteStream(`${OUTPUT_DIR}/${fileUtils.getReducedFileName(fileName)}`);
+        fs.createWriteStream(`${outputDir}/${fileUtils.getReducedFileName(fileType)}`);
 
       reader
         .pipe(parse())
@@ -47,8 +47,8 @@ function removeColumns(fileName) {
 
       writer.on('finish', () => {
         log.timeEnd(timerMsg);
-        log.info(`Records processed for ${fileName} data column removal: ${transformedCount}`);
-        resolve(periods);
+        log.info(`Records processed for ${fileType} data column removal: ${transformedCount}`);
+        resolve({ periods, request });
       });
     } catch (err) {
       reject(err);
@@ -56,15 +56,4 @@ function removeColumns(fileName) {
   });
 }
 
-function booking() {
-  return removeColumns('BOOKING');
-}
-
-function scripts() {
-  return removeColumns('SCRIPTS');
-}
-
-module.exports = {
-  booking,
-  scripts,
-};
+module.exports = removeColumns;
