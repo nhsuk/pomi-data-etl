@@ -18,8 +18,8 @@ the indicator reference number i.e. P02154
 
 ## Run the application
 
-Once the repo is cloned and the dependencies are installed (`npm install`).
-The application can be run via `npm run start`. This will download the file(s),
+Once the repo is cloned and the dependencies are installed (`yarn install`).
+The application can be run via `yarn run start`. This will download the file(s),
 strip out any records that are not for the current latest period (calculated
 based on the records), create csv file(s) containing those records in the output
 dir (`./output/`) and create json file(s) containing an array of objects in

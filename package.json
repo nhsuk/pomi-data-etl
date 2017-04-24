@@ -5,18 +5,18 @@
   "main": "runner.js",
   "scripts": {
     "coverage-check": "istanbul check-coverage --config .istanbul.yml",
-    "coverage-generate": "npm run istanbul -- cover _mocha -- --recursive test",
+    "coverage-generate": "yarn run istanbul -- cover _mocha -- --recursive test",
     "coverage-upload": "cat ./coverage/lcov.info | coveralls",
-    "git-hooks": "npm run lint && npm run coverage-generate && npm run coverage-check",
+    "git-hooks": "yarn run lint && yarn run coverage-generate && yarn run coverage-check",
     "istanbul": "NODE_ENV=test istanbul",
     "lint": "eslint --ext .js,.json .",
     "lint-watch": "esw --watch .",
-    "precommit": "npm run git-hooks",
-    "prepush": "npm run snyk -- test",
+    "precommit": "yarn run git-hooks",
+    "prepush": "yarn run snyk -- test",
     "snyk": "snyk",
     "start": "node runner.js",
     "test": "mocha --recursive",
-    "test-watch": "npm run test -- --watch --reporter min"
+    "test-watch": "yarn run test -- --watch --reporter min"
   },
   "repository": {
     "type": "git",
