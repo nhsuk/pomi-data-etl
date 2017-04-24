@@ -3,5 +3,5 @@ node_js:
   - node
 
 script:
-  - npm run git-hooks
-  - npm run coverage-upload
+  - yarn run git-hooks
+  - yarn run coverage-upload
