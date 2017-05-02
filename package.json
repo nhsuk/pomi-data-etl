@@ -7,16 +7,16 @@
     "coverage-check": "istanbul check-coverage --config .istanbul.yml",
     "coverage-generate": "yarn run istanbul -- cover _mocha -- --recursive test",
     "coverage-upload": "cat ./coverage/lcov.info | coveralls",
-    "git-hooks": "yarn run lint && yarn run coverage-generate && yarn run coverage-check",
+    "git-hook": "yarn run lint && yarn run coverage-generate && yarn run coverage-check",
     "istanbul": "NODE_ENV=test istanbul",
     "lint": "eslint --ext .js,.json .",
     "lint-watch": "esw --watch .",
-    "precommit": "yarn run git-hooks",
+    "precommit": "yarn run git-hook",
     "prepush": "yarn run snyk -- test",
-    "snyk": "snyk",
     "start": "node runner.js",
     "test": "mocha --recursive",
-    "test-watch": "yarn run test -- --watch --reporter min"
+    "test-watch": "yarn run test -- --watch --reporter min",
+    "travis": "yarn run git-hook && yarn run coverage-upload && yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk"
   },
   "repository": {
     "type": "git",
