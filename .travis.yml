@@ -3,5 +3,4 @@ node_js:
   - node
 
 script:
-  - yarn run git-hooks
-  - yarn run coverage-upload
+  - yarn run travis
