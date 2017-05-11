@@ -1,7 +1,7 @@
 const fs = require('fs');
 const chai = require('chai');
 const parse = require('csv-parse/lib/sync');
-const app = require('../../app');
+const downloadAndProcessFile = require('../../app/lib/downloadAndProcessFile');
 const constants = require('../../app/lib/constants');
 const fileUtils = require('../../app/lib/fileUtils');
 
@@ -28,7 +28,7 @@ describe('app', () => {
       }
 
       return Promise.resolve(
-        app.downloadAndProcessFile(
+        downloadAndProcessFile(
           { type: FILE_NAME, path: testFilePath, OUTPUT_DIR }
         ));
     });

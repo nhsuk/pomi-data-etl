@@ -1,6 +1,14 @@
+sudo: required
+
+services:
+  - docker
+
 language: node_js
 node_js:
   - node
 
 script:
   - yarn run travis
+
+after_success:
+  - bash ./scripts/ci-deployment/deploy.sh
