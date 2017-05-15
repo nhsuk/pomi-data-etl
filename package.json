@@ -49,6 +49,7 @@
   "dependencies": {
     "bunyan": "^1.8.8",
     "csv": "^1.1.1",
+    "nock": "^9.0.13",
     "node-schedule": "^1.2.1"
   }
 }

@@ -15,4 +15,4 @@ function start() {
     downloadAndProcessFile(request);
   });
 }
-module.exports = start;
+module.exports = { start };

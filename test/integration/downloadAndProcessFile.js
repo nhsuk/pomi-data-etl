@@ -1,6 +1,8 @@
 const fs = require('fs');
 const chai = require('chai');
 const parse = require('csv-parse/lib/sync');
+const nock = require('nock');
+
 const downloadAndProcessFile = require('../../app/lib/downloadAndProcessFile');
 const constants = require('../../app/lib/constants');
 const fileUtils = require('../../app/lib/fileUtils');
@@ -19,9 +21,18 @@ const SUPPLIER_HEADER = constants.HEADERS.SUPPLIER;
 const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
 
 const testFilePath = `test/resources/${SIMPLE_FILE_NAME}`;
+const testFileServer = 'http://some.server';
+const testFileServerPath = '/somefile.csv';
+const testFileUrl = `${testFileServer}${testFileServerPath}`;
+
 
 describe('app', () => {
-  describe('processing of data from locally held file', () => {
+  describe('processing of data from URL (stubbed)', () => {
+    const stubbedData = fs.readFileSync(testFilePath);
+    nock(testFileServer)
+      .get(testFileServerPath)
+      .reply(200, stubbedData);
+
     before('delete files and run process', () => {
       if (fs.existsSync(`${OUTPUT_DIR}/${testFilePath}`)) {
         fs.unlinkSync(`${OUTPUT_DIR}/${testFilePath}`);
@@ -29,7 +40,7 @@ describe('app', () => {
 
       return Promise.resolve(
         downloadAndProcessFile(
-          { type: FILE_NAME, path: testFilePath, OUTPUT_DIR }
+          { type: FILE_NAME, url: testFileUrl, OUTPUT_DIR }
         ));
     });
 
