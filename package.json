@@ -14,7 +14,7 @@
     "precommit": "yarn run git-hook",
     "prepush": "yarn run snyk -- test",
     "start": "node schedule.js",
-    "test": "mocha --recursive",
+    "test": "snyk test && mocha --recursive",
     "test-watch": "yarn run test -- --watch --reporter min",
     "travis": "yarn run git-hook && yarn run coverage-upload && yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk"
   },
