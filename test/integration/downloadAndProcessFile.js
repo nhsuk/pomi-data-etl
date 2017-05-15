@@ -22,7 +22,7 @@ const ODS_CODE_HEADER = constants.HEADERS.ODS_CODE;
 
 const testFilePath = `test/resources/${SIMPLE_FILE_NAME}`;
 const testFileServer = 'http://some.server';
-const testFileServerPath = '/somefile.csv';
+const testFileServerPath = '/test-pomi.csv';
 const testFileUrl = `${testFileServer}${testFileServerPath}`;
 
 

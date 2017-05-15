@@ -10,7 +10,7 @@ function saveFile(request) {
   return apiRequest(request)
     .then((data) => {
       log.timeEnd(timerMsg);
-      fsHelper.saveFileSync(data);
+      fsHelper.saveFileSync(data, request.OUTPUT_DIR);
       return request;
     });
 }
