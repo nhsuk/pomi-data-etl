@@ -1,3 +1,7 @@
 version: v1.5.2
-ignore: {}
+ignore:
+  'npm:ms:20170412':
+    - node-pre-gyp > tar-pack > debug > ms:
+        reason: only used in tests
+        expires: '2017-06-14T15:33:10.550Z'
 patch: {}
