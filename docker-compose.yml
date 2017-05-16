@@ -5,7 +5,6 @@ services:
   base-etl:
     build:
       context: .
-    command: yarn start
     volumes:
       - .:/code
       - pomi-etl-output:/code/output
@@ -18,21 +17,8 @@ services:
       service: base-etl
     volumes:
       - pomi-etl-node-modules:/code/node_modules
-
-  test:
-    extends:
-      service: base-etl
-    command: yarn test
-    volumes:
-      - pomi-etl-node-modules:/code/node_modules
-
-  nginx:
-    restart: always
-    image: nhsuk/gp-data-etl-site:pr-1
     ports:
       - 80:80
-    volumes:
-      - pomi-etl-output:/usr/share/nginx/html/json
 
 volumes:
   pomi-etl-node-modules:

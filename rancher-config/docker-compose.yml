@@ -1,0 +1,12 @@
+version: '2'
+
+services:
+
+  etl:
+    image: nhsuk/pomi-data-etl:${DOCKER_IMAGE_TAG}
+    environment:
+      ETL_SCHEDULE: ${ETL_SCHEDULE}
+    labels:
+      traefik.enable: stack
+      traefik.domain: ${TRAEFIK_DOMAIN}
+      traefik.port: 80

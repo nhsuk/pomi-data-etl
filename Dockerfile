@@ -1,12 +1,14 @@
 FROM node:7.9-alpine
 
-ENV USERNAME nodeuser
+RUN apk --no-cache add nginx supervisor && mkdir -p /run/nginx/
 
-RUN adduser -D "$USERNAME" && \
-    mkdir /code && \
-    chown "$USERNAME":"$USERNAME" /code
+# ENV USERNAME nodeuser
 
-USER $USERNAME
+# RUN adduser -D "$USERNAME" && \
+#     mkdir /code && \
+#     chown "$USERNAME":"$USERNAME" /code
+
+# USER $USERNAME
 WORKDIR /code
 
 ENV ETL_SCHEDULE=${ETL_SCHEDULE}
@@ -16,8 +18,13 @@ RUN  yarn install --ignore-optional
 
 COPY . /code
 
-USER root
-RUN find /code/output -user 0 -print0 | xargs -0 chown "$USERNAME":"$USERNAME"
-USER $USERNAME
+# USER root
 
-CMD [ "yarn", "start" ]
+EXPOSE 80
+
+RUN ln -s /code/output/ /code/html/json
+
+# RUN find /code/output -user 0 -print0 | xargs -0 chown "$USERNAME":"$USERNAME"
+# USER $USERNAME
+
+CMD [ "supervisord", "-n", "-c", "/code/supervisord.conf" ]

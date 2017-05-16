@@ -16,7 +16,11 @@
     "start": "node schedule.js",
     "test": "snyk test && mocha --recursive",
     "test-watch": "yarn run test -- --watch --reporter min",
-    "travis": "yarn run git-hook && yarn run coverage-upload && yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk"
+    "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls",
+    "postrewrite": "yarn run git-hook",
+    "snyk": "snyk",
+    "snyk-travis": "yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk",
+    "travis": "yarn run git-hook && yarn run coverage-upload && yarn run snyk-travis"
   },
   "repository": {
     "type": "git",
