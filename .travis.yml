@@ -1,7 +1,8 @@
+sudo: required
+
 language: node_js
 node_js:
-
-  - nodesudo: required
+  - node
 
 services:
   - docker
