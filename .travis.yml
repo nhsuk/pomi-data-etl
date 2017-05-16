@@ -13,7 +13,7 @@ before_install:
   - chmod +x docker-compose
   - sudo mv docker-compose /usr/local/bin
 
-  script:
+script:
   - docker-compose -f docker-compose-tests.yml build travis
   - docker-compose -f docker-compose-tests.yml run travis
 
