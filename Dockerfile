@@ -5,7 +5,7 @@ RUN apk --no-cache add nginx supervisor && mkdir -p /run/nginx/
 ENV USERNAME nodeuser
 
 RUN adduser -D "$USERNAME" && \
-    mkdir /code && \
+    mkdir -p /code/output && \
     chown "$USERNAME":"$USERNAME" /code
 
 USER $USERNAME
