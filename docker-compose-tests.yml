@@ -8,7 +8,7 @@ services:
       service: base-etl
     command: yarn test
     volumes:
-      - pomi-etl-node-modules:/code/node_modules
+      - pomi-etl-node-modules-test:/code/node_modules
     environment:
       NODE_ENV: test
       SNYK_TOKEN: ${SNYK_TOKEN}
@@ -19,7 +19,7 @@ services:
       service: base-etl
     command: yarn run travis
     volumes:
-      - pomi-etl-node-modules:/code/node_modules
+      - pomi-etl-node-modules-test:/code/node_modules
     environment:
       COVERALLS_REPO_TOKEN: ${COVERALLS_REPO_TOKEN}
       NODE_ENV: test
@@ -35,7 +35,23 @@ services:
       service: base-etl
     command: yarn run test-integration
     volumes:
-      - pomi-etl-node-modules:/code/node_modules
+      - pomi-etl-node-modules-test:/code/node_modules
+    environment:
+      COVERALLS_REPO_TOKEN: ${COVERALLS_REPO_TOKEN}
+      NODE_ENV: development
+      SNYK_TOKEN: ${SNYK_TOKEN}
+      TRAVIS: ${TRAVIS}
+      TRAVIS_BRANCH: ${TRAVIS_BRANCH}
+      TRAVIS_COMMIT: ${TRAVIS_COMMIT}
+      TRAVIS_JOB_ID: ${TRAVIS_JOB_ID}
+
+  travis-snyk:
+    extends:
+      file: docker-compose.yml
+      service: base-etl
+    command: yarn run snyk-travis
+    volumes:
+      - pomi-etl-node-modules-test:/code/node_modules
     environment:
       COVERALLS_REPO_TOKEN: ${COVERALLS_REPO_TOKEN}
       NODE_ENV: development
@@ -46,5 +62,4 @@ services:
       TRAVIS_JOB_ID: ${TRAVIS_JOB_ID}
 
 volumes:
-  pomi-etl-node-modules:
-  pomi-etl-output:
+  pomi-etl-node-modules-test:
