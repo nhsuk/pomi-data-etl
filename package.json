@@ -20,7 +20,7 @@
     "postrewrite": "yarn run git-hook",
     "snyk": "snyk",
     "snyk-travis": "yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk",
-    "travis": "yarn run git-hook && yarn run coverage-upload && yarn run snyk-travis"
+    "travis": "yarn run git-hook && yarn run coverage-upload"
   },
   "repository": {
     "type": "git",
