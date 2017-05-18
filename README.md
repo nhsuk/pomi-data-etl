@@ -22,7 +22,7 @@ Running `scripts/start` will bring up a docker container hosting a web server an
 The default is 11pm. To test locally set an environment variable `ETL_SCHEDULE` to a new time, i.e. `export ETL_SCHEDULE='25 15 * * *'` to start the processing a 3:25pm.
 Further details available [here](https://www.npmjs.com/package/node-schedule)
 
-Once initiated the scrapewill download the files, strip out any records that are
+Once initiated the scrape will download the files, strip out any records that are
 not for the current latest period (calculated based on the records), create csv
 file(s) containing those records in the output dir (`./output/`) and create json 
 files containing an array of objects in the form of
