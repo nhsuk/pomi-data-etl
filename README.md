@@ -18,12 +18,14 @@ the indicator reference number i.e. P02154
 
 ## Run the application
 
-Once the repo is cloned and the dependencies are installed (`yarn install`).
-The application can be run via `yarn run start`. This will download the file(s),
-strip out any records that are not for the current latest period (calculated
-based on the records), create csv file(s) containing those records in the output
-dir (`./output/`) and create json file(s) containing an array of objects in
-the form of
+Running `scripts/start` will bring up a docker container hosting a web server and initiate the scrape at a scheduled time.
+The default is 11pm. To test locally set an environment variable `ETL_SCHEDULE` to a new time, i.e. `export ETL_SCHEDULE='25 15 * * *'` to start the processing a 3:25pm.
+Further details available [here](https://www.npmjs.com/package/node-schedule)
+
+Once initiated the scrapewill download the files, strip out any records that are
+not for the current latest period (calculated based on the records), create csv
+file(s) containing those records in the output dir (`./output/`) and create json 
+files containing an array of objects in the form of
 ```
 {
   "PeriodEnd": "dd/mm/yyyyy",
@@ -38,3 +40,8 @@ that is now using the Informatica system.
 
 Note: The list above was created by running
 `jq -c '[.[].Supplier] | unique ' output/pomi.json`
+
+The json files created will be available via the container's webserver at
+`http://localhost/json/booking.json`,
+`http://localhost/json/scripts.json`, and
+`http://localhost/json/records.json`
