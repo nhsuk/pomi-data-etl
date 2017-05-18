@@ -10,3 +10,9 @@ services:
       traefik.enable: stack
       traefik.domain: ${TRAEFIK_DOMAIN}
       traefik.port: 80
+      map-public-http: 80
+    volumes:
+      - pomi-etl-output:/code/output
+
+volumes:
+  pomi-etl-output:
