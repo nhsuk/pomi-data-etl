@@ -14,7 +14,7 @@ WORKDIR /code
 ENV ETL_SCHEDULE=${ETL_SCHEDULE}
 
 COPY yarn.lock package.json /code/
-RUN  yarn install --ignore-optional
+RUN if [ "$NODE_ENV" == "production" ]; then yarn install --production --ignore-optional --pure-lockfile; else yarn install --ignore-optional --pure-lockfile; fi
 
 COPY . /code
 
