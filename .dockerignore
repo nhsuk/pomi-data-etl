@@ -1,4 +1,5 @@
 .dockerignore
+.gitignore
 docker-compose*
 .git/
 Dockerfile

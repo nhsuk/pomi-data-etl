@@ -24,7 +24,7 @@ Further details available [here](https://www.npmjs.com/package/node-schedule)
 
 Once initiated the scrape will download the files, strip out any records that are
 not for the current latest period (calculated based on the records), create csv
-file(s) containing those records in the output dir (`./output/`) and create json 
+file(s) containing those records in the output dir (`./html/json/`) and create json 
 files containing an array of objects in the form of
 ```
 {
@@ -39,7 +39,7 @@ with an `(I)` appended e.g. `EMIS (I)`. The addition of `(I)` represents a GP
 that is now using the Informatica system.
 
 Note: The list above was created by running
-`jq -c '[.[].Supplier] | unique ' output/pomi.json`
+`jq -c '[.[].Supplier] | unique ' html/json/pomi.json`
 
 The json files created will be available via the container's webserver at
 `http://localhost/json/booking.json`,

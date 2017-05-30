@@ -5,7 +5,7 @@ RUN apk --no-cache add nginx supervisor && mkdir -p /run/nginx/
 ENV USERNAME nodeuser
 
 RUN adduser -D "$USERNAME" && \
-    mkdir -p /code/output && \
+    mkdir -p /code && \
     chown "$USERNAME":"$USERNAME" /code
 
 USER $USERNAME
@@ -22,8 +22,6 @@ USER root
 
 EXPOSE 80
 
-RUN ln -s /code/output/ /code/html/json
-
-RUN find /code/output -user 0 -print0 | xargs -0 chown "$USERNAME":"$USERNAME"
+RUN find /code -user 0 -print0 | xargs -0 chown "$USERNAME":"$USERNAME"
 
 CMD [ "supervisord", "-n", "-c", "/code/supervisord.conf" ]
