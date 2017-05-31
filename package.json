@@ -11,12 +11,16 @@
     "istanbul": "NODE_ENV=test istanbul",
     "lint": "eslint --ext .js,.json .",
     "lint-watch": "esw --watch .",
+    "postrewrite": "yarn run git-hook",
     "precommit": "yarn run git-hook",
     "prepush": "yarn run snyk -- test",
-    "start": "node runner.js",
+    "snyk": "snyk",
+    "snyk-travis": "yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk",
+    "start": "node schedule.js",
     "test": "mocha --recursive",
     "test-watch": "yarn run test -- --watch --reporter min",
-    "travis": "yarn run git-hook && yarn run coverage-upload && yarn run snyk -- test --org=nhsuk && yarn run snyk -- monitor --org=nhsuk"
+    "travis": "yarn run git-hook && yarn run coverage-check && yarn run coverage-upload && yarn run snyk-travis",
+    "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -43,11 +47,13 @@
     "husky": "^0.13.2",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
+    "nock": "^9.0.13",
     "nodemon": "^1.11.0",
-    "snyk": "^1.25.2"
+    "snyk": "^1.30.1"
   },
   "dependencies": {
     "bunyan": "^1.8.8",
-    "csv": "^1.1.1"
+    "csv": "^1.1.1",
+    "node-schedule": "^1.2.1"
   }
 }

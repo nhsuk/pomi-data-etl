@@ -11,10 +11,12 @@ function error(message, err) {
 }
 
 function time(message) {
+  // eslint-disable-next-line no-console
   console.time(message);
 }
 
 function timeEnd(message) {
+  // eslint-disable-next-line no-console
   console.timeEnd(message);
 }
 

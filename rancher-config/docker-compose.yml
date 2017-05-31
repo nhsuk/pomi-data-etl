@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+
+  etl:
+    image: nhsuk/pomi-data-etl:${DOCKER_IMAGE_TAG}
+    environment:
+      ETL_SCHEDULE: ${ETL_SCHEDULE}
+    labels:
+      traefik.enable: stack
+      traefik.domain: ${TRAEFIK_DOMAIN}
+      traefik.port: 80
+      map-public-http: 80
+    volumes:
+      - pomi-etl-output:/code/output
+
+volumes:
+  pomi-etl-output:
