@@ -11,8 +11,8 @@ function start() {
     { type: 'RECORDS', url: codedRecordsDownloadUrl },
   ];
 
-  downloads.forEach((request) => {
-    downloadAndProcessFile(request);
+  downloads.forEach((download) => {
+    downloadAndProcessFile(download);
   });
 }
 module.exports = { start };

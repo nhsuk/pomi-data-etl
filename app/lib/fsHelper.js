@@ -3,8 +3,17 @@ const log = require('./logger');
 const fileUtils = require('./fileUtils');
 const constants = require('./constants');
 
+function fileExists(path) {
+  try {
+    fs.accessSync(path);
+    return true;
+  } catch (ex) {
+    return false;
+  }
+}
+
 function createDirIfMissing(path) {
-  if (!fs.existsSync(path)) {
+  if (!fileExists(path)) {
     fs.mkdirSync(path);
   }
 }
@@ -19,4 +28,5 @@ function saveFileSync(data, outputDir = constants.OUTPUT_DIR) {
 
 module.exports = {
   saveFileSync,
+  fileExists,
 };

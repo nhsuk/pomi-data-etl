@@ -6,6 +6,7 @@ const nock = require('nock');
 const downloadAndProcessFile = require('../../app/lib/downloadAndProcessFile');
 const constants = require('../../app/lib/constants');
 const fileUtils = require('../../app/lib/fileUtils');
+const fsHelper = require('../../app/lib/fsHelper');
 
 const expect = chai.expect;
 
@@ -34,7 +35,7 @@ describe('app', () => {
       .reply(200, stubbedData);
 
     before('delete files and run process', () => {
-      if (fs.existsSync(`${OUTPUT_DIR}/${testFilePath}`)) {
+      if (fsHelper.fileExists(`${OUTPUT_DIR}/${testFilePath}`)) {
         fs.unlinkSync(`${OUTPUT_DIR}/${testFilePath}`);
       }
 
