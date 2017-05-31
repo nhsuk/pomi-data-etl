@@ -4,5 +4,5 @@ module.exports = {
     PERIOD_END: 'PeriodEnd',
     SUPPLIER: 'Supplier',
   },
-  OUTPUT_DIR: 'html/json',
+  OUTPUT_DIR: 'site/json',
 };
