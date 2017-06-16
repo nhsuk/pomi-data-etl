@@ -26,7 +26,6 @@ const testFileServer = 'http://some.server';
 const testFileServerPath = '/test-pomi.csv';
 const testFileUrl = `${testFileServer}${testFileServerPath}`;
 
-
 describe('app', () => {
   describe('processing of data from URL (stubbed)', () => {
     const stubbedData = fs.readFileSync(testFilePath);
