@@ -23,6 +23,7 @@ services:
         splunk-source: pomi-data-etl
         splunk-verify-connection: "false"
         tag: '{{.ImageName}} {{.Name}} {{.FullID}}'
+        splunk-format: json
 
 volumes:
   pomi-etl-output:
