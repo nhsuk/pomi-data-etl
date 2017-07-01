@@ -13,6 +13,17 @@ services:
       map-public-http: 80
     volumes:
       - pomi-etl-output:/code/site/json
+    logging:
+      driver: splunk
+      options:
+        splunk-url: ${SPLUNK_HEC_URL}
+        splunk-token: ${SPLUNK_HEC_TOKEN}
+        splunk-insecureskipverify: "true"
+        splunk-sourcetype: docker
+        splunk-source: pomi-data-etl
+        splunk-verify-connection: "false"
+        tag: '{{.ImageName}} {{.Name}} {{.FullID}}'
+        splunk-format: json
 
 volumes:
   pomi-etl-output:
