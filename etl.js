@@ -16,10 +16,11 @@ async function start() {
     { type: 'SCRIPTS', url: scriptsDownloadUrl },
     { type: 'RECORDS', url: codedRecordsDownloadUrl },
   ];
-
+  /* eslint-disable */
   for (const download of downloads) {
-    // await downloadAndProcessFile(download);
+    await downloadAndProcessFile(download);
     await uploadOutputToAzure(download.type);
   }
+  /* eslint-enable */
 }
 module.exports = { start };
