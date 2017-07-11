@@ -16,9 +16,8 @@
     "prepush": "yarn snyk test",
     "start": "node schedule.js",
     "test": "mocha --recursive",
-    "test-watch": "yarn test -- --watch --reporter min",
-    "travis": "yarn git-hook && yarn coverage-check && yarn coverage-upload",
-    "upload-coverage-coveralls": "cat ./coverage/lcov.info | coveralls"
+    "test-ci": "yarn git-hook && yarn coverage-check && yarn coverage-upload",
+    "test-watch": "yarn test -- --watch --reporter min"
   },
   "repository": {
     "type": "git",
