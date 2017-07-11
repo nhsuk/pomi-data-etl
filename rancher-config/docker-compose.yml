@@ -7,7 +7,7 @@ services:
     environment:
       ETL_SCHEDULE: ${ETL_SCHEDULE}
     labels:
-      traefik.enable: stack
-      traefik.domain: ${TRAEFIK_DOMAIN}
+      traefik.enable: true
+      traefik.frontend.rule: $TRAEFIK_RULE
       traefik.port: 80
       map-public-http: 80
