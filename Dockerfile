@@ -1,7 +1,5 @@
 FROM node:7.10.1-alpine
 
-RUN apk --no-cache add nginx supervisor && mkdir -p /run/nginx/
-
 ENV USERNAME nodeuser
 
 RUN adduser -D "$USERNAME" && \
@@ -20,8 +18,8 @@ COPY . /code
 
 USER root
 
-EXPOSE 80
-
 RUN find /code -user 0 -print0 | xargs -0 chown "$USERNAME":"$USERNAME"
 
-CMD [ "supervisord", "-n", "-c", "/code/supervisord.conf" ]
+USER $USERNAME
+
+CMD [ "node", "schedule.js" ]

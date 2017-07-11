@@ -4,5 +4,6 @@ module.exports = {
     PERIOD_END: 'PeriodEnd',
     SUPPLIER: 'Supplier',
   },
-  OUTPUT_DIR: 'site/json',
+  OUTPUT_DIR: 'output',
+  CONTAINER_NAME: 'etl-output'
 };
