@@ -1,14 +1,9 @@
-# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.7.1
-# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+version: v1.5.2
 ignore:
   'npm:ms:20170412':
     - node-pre-gyp > tar-pack > debug > ms:
         reason: None given
         expires: '2017-06-16T08:19:52.410Z'
-      eslint-plugin-import > debug > ms:
-        reason: None given
-        expires: '2017-07-16T13:42:59.401Z'
     - eslint-plugin-import > eslint-import-resolver-node > debug > ms:
         reason: None given
         expires: '2017-07-16T13:42:59.401Z'
@@ -18,4 +13,11 @@ ignore:
     - eslint-plugin-import > eslint-module-utils > debug > ms:
         reason: None given
         expires: '2017-07-16T13:42:59.401Z'
+    - eslint-plugin-import > debug > ms:
+        reason: None given
+        expires: '2017-07-16T13:42:59.401Z'
+  'npm:tunnel-agent:20170305':
+    - azure-storage > request > tunnel-agent:
+        reason: None given
+        expires: '2017-08-10T15:35:11.308Z'
 patch: {}
