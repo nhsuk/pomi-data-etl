@@ -1,7 +1,6 @@
 # POMI Data ETL
 
 [![Greenkeeper badge](https://badges.greenkeeper.io/nhsuk/pomi-data-etl.svg)](https://greenkeeper.io/)
-
 [![Build Status](https://travis-ci.org/nhsuk/pomi-data-etl.svg?branch=master)](https://travis-ci.org/nhsuk/pomi-data-etl)
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/pomi-data-etl/badge.svg?branch=master)](https://coveralls.io/github/nhsuk/pomi-data-etl?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/nhsuk/pomi-data-etl/badge.svg)](https://snyk.io/test/github/nhsuk/pomi-data-etl)
@@ -28,7 +27,7 @@ Further details available [here](https://www.npmjs.com/package/node-schedule)
 
 Once initiated the scrape will download the files, strip out any records that are
 not for the current latest period (calculated based on the records), create csv
-file(s) containing those records in the output dir (`./html/json/`) and create json 
+file(s) containing those records in the output dir (`./html/json/`) and create JSON
 files containing an array of objects in the form of
 ```
 {
@@ -45,7 +44,7 @@ that is now using the Informatica system.
 Note: The list above was created by running
 `jq -c '[.[].Supplier] | unique ' html/json/pomi.json`
 
-The json files created will be available via the container's webserver at
+The JSON files created will be available via the container's web server at
 `http://localhost/json/booking.json`,
 `http://localhost/json/scripts.json`, and
 `http://localhost/json/records.json`
