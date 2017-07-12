@@ -5,6 +5,7 @@ services:
   etl:
     image: nhsuk/pomi-data-etl:${DOCKER_IMAGE_TAG}
     environment:
+      NODE_ENV: ${NODE_ENV}
       ETL_SCHEDULE: ${ETL_SCHEDULE}
       AZURE_STORAGE_CONNECTION_STRING: '${AZURE_STORAGE_CONNECTION_STRING}'
       AZURE_TIMEOUT_MINUTES: ${AZURE_TIMEOUT_MINUTES}

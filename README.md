@@ -44,9 +44,36 @@ that is now using the Informatica system.
 Note: The list above was created by running
 `jq -c '[.[].Supplier] | unique ' html/json/pomi.json`
 
-The JSON files created will be available via the container's web server at
-`http://localhost/json/booking.json`,
-`http://localhost/json/scripts.json`, and
-`http://localhost/json/records.json`
+Upon completion the files will also be uploaded to the Azure storage location specified in the environment variable `AZURE_STORAGE_CONNECTION_STRING`.
+Each file will be uploaded twice, once to overwrite the current file and another date-stamped file, i.e. `booking.json` and `20170530-booking.json`.
 
-Files are not present until the scheduler has run and may return a 404 error prior to then.
+## Azure Blob Storage
+
+If the recommended environment variables are used the JSON file created will be available in Azure storage at 
+[https://nhsukgpdataetl.blob.core.windows.net/etl-output/booking.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/booking.json),
+[https://nhsukgpdataetl.blob.core.windows.net/etl-output/scripts.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/scripts.json), and
+[https://nhsukgpdataetl.blob.core.windows.net/etl-output/records.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/records.json)
+
+The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) may be used to browse the contents of blob storage.
+
+## Environment variables
+
+Environment variables are expected to be managed by the environment in which
+the application is being run. This is best practice as described by
+[twelve-factor](https://12factor.net/config).
+
+| Variable                           | Description                                                          | Default                 | Required   |
+| :--------------------------------- | :------------------------------------------------------------------- | ----------------------- | :--------- |
+| `NODE_ENV`                         | node environment                                                     | development             |            |
+| `LOG_LEVEL`                        | [log level](https://github.com/trentm/node-bunyan#levels)            | Depends on `NODE_ENV`   |            |
+| `AZURE_STORAGE_CONNECTION_STRING`  | Azure storage connection string                                      |                         | yes        |
+| `AZURE_TIMEOUT_MINUTES`            | Maximum wait time when uploading file to Azure                       | 10                      |            |
+| `CONTAINER_NAME`                   | Azure storage container name                                         | etl-output              |            |
+| `UPDATE_SCHEDULE`                  | time of day to run the upgrade                                       | 15 7 * * * (7:15 am)    |            |
+
+## Architecture Decision Records
+
+This repo uses
+[Architecture Decision Records](http://thinkrelevance.com/blog/2011/11/15/documenting-architecture-decisions)
+to record architectural decisions for this project.
+They are stored in [doc/adr](doc/adr).
