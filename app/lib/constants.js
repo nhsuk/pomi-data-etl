@@ -5,5 +5,5 @@ module.exports = {
     SUPPLIER: 'Supplier',
   },
   OUTPUT_DIR: 'output',
-  CONTAINER_NAME: 'etl-output'
+  CONTAINER_NAME: process.env.CONTAINER_NAME || 'etl-output'
 };
