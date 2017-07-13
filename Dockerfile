@@ -1,4 +1,4 @@
-FROM node:7.9-alpine
+FROM node:7.10.1-alpine
 
 RUN apk --no-cache add nginx supervisor && mkdir -p /run/nginx/
 
