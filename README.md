@@ -50,9 +50,9 @@ Each file will be uploaded twice, once to overwrite the current file and another
 ## Azure Blob Storage
 
 If the recommended environment variables are used the JSON file created will be available in Azure storage at 
-[https://nhsukgpdataetl.blob.core.windows.net/etl-output/booking.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/booking.json),
-[https://nhsukgpdataetl.blob.core.windows.net/etl-output/scripts.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/scripts.json), and
-[https://nhsukgpdataetl.blob.core.windows.net/etl-output/records.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/records.json)
+* [https://nhsukgpdataetl.blob.core.windows.net/etl-output/booking.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/booking.json)
+* [https://nhsukgpdataetl.blob.core.windows.net/etl-output/scripts.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/scripts.json)
+* [https://nhsukgpdataetl.blob.core.windows.net/etl-output/records.json](https://nhsukgpdataetl.blob.core.windows.net/etl-output/records.json)
 
 The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) may be used to browse the contents of blob storage.
 
