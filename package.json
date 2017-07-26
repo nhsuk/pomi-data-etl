@@ -48,8 +48,11 @@
     "snyk": "^1.36.2"
   },
   "dependencies": {
+    "azure-storage": "^2.2.1",
     "bunyan": "^1.8.8",
     "csv": "^1.1.1",
-    "node-schedule": "^1.2.3"
+    "moment": "^2.18.1",
+    "node-schedule": "^1.2.3",
+    "require-environment-variables": "^1.1.2"
   }
 }

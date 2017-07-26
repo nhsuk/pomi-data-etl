@@ -14,25 +14,32 @@ function finishWritingJsonFile(fileName, outputDir) {
 }
 
 function convertToJson(data) {
-  const outputDir = data.request.OUTPUT_DIR;
-  const fileType = data.request.type;
-  const timerMsg = `Converting CSV to JSON for ${fileType} took`;
-  log.time(timerMsg);
-  const csvReader =
-    fs.createReadStream(`${outputDir}/${fileUtils.getCurrentRecordsFileName(fileType)}`);
-  const jsonWriter =
-    fs.createWriteStream(`${outputDir}/${fileUtils.getJsonFileName(fileType)}`);
+  return new Promise((resolve, reject) => {
+    try {
+      const outputDir = data.request.OUTPUT_DIR;
+      const fileType = data.request.type;
+      const timerMsg = `Converting CSV to JSON for ${fileType} took`;
+      log.time(timerMsg);
+      const csvReader =
+        fs.createReadStream(`${outputDir}/${fileUtils.getCurrentRecordsFileName(fileType)}`);
+      const jsonWriter =
+        fs.createWriteStream(`${outputDir}/${fileUtils.getJsonFileName(fileType)}`);
 
-  jsonWriter.write('[');
+      jsonWriter.write('[');
 
-  csvReader
-    .pipe(parse({ columns: true }))
-    .pipe(transform(parsedData => `${JSON.stringify(parsedData)},`))
-    .pipe(jsonWriter);
+      csvReader
+        .pipe(parse({ columns: true }))
+        .pipe(transform(parsedData => `${JSON.stringify(parsedData)},`))
+        .pipe(jsonWriter);
 
-  jsonWriter.on('finish', () => {
-    finishWritingJsonFile(fileType, outputDir);
-    log.timeEnd(timerMsg);
+      jsonWriter.on('finish', () => {
+        finishWritingJsonFile(fileType, outputDir);
+        log.timeEnd(timerMsg);
+        resolve(true);
+      });
+    } catch (ex) {
+      reject(ex);
+    }
   });
 }
 

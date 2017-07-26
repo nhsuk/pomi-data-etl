@@ -5,19 +5,18 @@ services:
   base-etl:
     build:
       context: .
-    volumes:
-      - .:/code
     environment:
       ETL_SCHEDULE: ${ETL_SCHEDULE}
+      AZURE_STORAGE_CONNECTION_STRING: ${AZURE_STORAGE_CONNECTION_STRING}
 
   etl:
     extends:
       service: base-etl
     volumes:
+    volumes:
+      - .:/code
       - pomi-etl-output:/code/output
       - pomi-etl-node-modules:/code/node_modules
-    ports:
-      - 80:80
 
 volumes:
   pomi-etl-node-modules:
