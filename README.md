@@ -1,5 +1,6 @@
 # POMI Data ETL
 
+[![GitHub Release](https://img.shields.io/github/release/nhsuk/pomi-data-etl.svg)](https://github.com/nhsuk/pomi-data-etl/releases/latest/)
 [![Greenkeeper badge](https://badges.greenkeeper.io/nhsuk/pomi-data-etl.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/nhsuk/pomi-data-etl.svg?branch=master)](https://travis-ci.org/nhsuk/pomi-data-etl)
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/pomi-data-etl/badge.svg?branch=master)](https://coveralls.io/github/nhsuk/pomi-data-etl?branch=master)
