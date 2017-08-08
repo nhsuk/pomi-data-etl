@@ -2,5 +2,5 @@ version: '2'
 
 services:
   etl:
-    scale: 1
+    scale: $INITIAL_CONTAINER_SCALE
     start_on_create: true
