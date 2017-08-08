@@ -5,9 +5,21 @@ services:
   etl:
     image: nhsuk/pomi-data-etl:${DOCKER_IMAGE_TAG}
     environment:
+      NODE_ENV: ${NODE_ENV}
       ETL_SCHEDULE: ${ETL_SCHEDULE}
+      AZURE_STORAGE_CONNECTION_STRING: '${AZURE_STORAGE_CONNECTION_STRING}'
+      AZURE_TIMEOUT_MINUTES: ${AZURE_TIMEOUT_MINUTES}
+      CONTAINER_NAME: ${CONTAINER_NAME}
     labels:
-      traefik.enable: true
-      traefik.frontend.rule: $TRAEFIK_RULE
-      traefik.port: 80
-      map-public-http: 80
+      io.rancher.container.pull_image: always
+    logging:
+      driver: splunk
+      options:
+        splunk-url: ${SPLUNK_HEC_URL}
+        splunk-token: ${SPLUNK_HEC_TOKEN}
+        splunk-insecureskipverify: "true"
+        splunk-sourcetype: docker
+        splunk-source: pomi-data-etl
+        splunk-verify-connection: "false"
+        tag: "{{`{{.ImageName}} {{.Name}} {{.FullID}}`}}"
+        splunk-format: json
