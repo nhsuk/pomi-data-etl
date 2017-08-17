@@ -30,29 +30,29 @@
   },
   "homepage": "https://github.com/nhsuk/pomi-data-etl#readme",
   "devDependencies": {
-    "chai": "^4.0.2",
+    "chai": "^4.1.1",
     "coveralls": "^2.13.1",
-    "csv-parse": "^1.2.0",
-    "eslint": "^4.1.1",
-    "eslint-config-airbnb-base": "^11.2.0",
-    "eslint-config-nhsuk": "^0.3.0",
-    "eslint-plugin-import": "^2.6.1",
+    "csv-parse": "^1.2.1",
+    "eslint": "^4.4.1",
+    "eslint-config-airbnb-base": "^11.3.1",
+    "eslint-config-nhsuk": "^0.3.3",
+    "eslint-plugin-import": "^2.7.0",
     "eslint-plugin-json": "^1.2.0",
     "eslint-plugin-mocha": "^4.11.0",
     "eslint-watch": "^3.1.2",
     "husky": "^0.14.2",
     "istanbul": "^0.4.5",
-    "mocha": "^3.4.2",
-    "nock": "^9.0.13",
+    "mocha": "^3.5.0",
+    "nock": "^9.0.14",
     "nodemon": "^1.11.0",
-    "snyk": "^1.36.2"
+    "snyk": "^1.38.2"
   },
   "dependencies": {
-    "azure-storage": "^2.2.1",
-    "bunyan": "^1.8.8",
+    "azure-storage": "^2.2.2",
+    "bunyan": "^1.8.12",
     "csv": "^1.1.1",
     "moment": "^2.18.1",
-    "node-schedule": "^1.2.3",
+    "node-schedule": "^1.2.4",
     "require-environment-variables": "^1.1.2"
   }
 }
