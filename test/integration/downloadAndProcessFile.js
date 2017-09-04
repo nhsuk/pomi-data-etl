@@ -38,10 +38,8 @@ describe('app', () => {
         fs.unlinkSync(`${OUTPUT_DIR}/${testFilePath}`);
       }
 
-      return Promise.resolve(
-        downloadAndProcessFile(
-          { type: FILE_NAME, url: testFileUrl, OUTPUT_DIR }
-        ));
+      return Promise
+        .resolve(downloadAndProcessFile({ type: FILE_NAME, url: testFileUrl, OUTPUT_DIR }));
     });
 
     it('should save the original data file', () => {
