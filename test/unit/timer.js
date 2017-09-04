@@ -13,7 +13,6 @@ describe('timer smoke tests', () => {
       expect(result).to.equal(value);
       timer.end(message);
       done();
-    }
-    );
+    });
   });
 });

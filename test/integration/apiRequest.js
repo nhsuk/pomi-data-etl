@@ -13,6 +13,5 @@ describe('apiRequest', () => {
         expect(err.message).to.be.equal('Failed to load page, status code: 418');
         done();
       });
-  }
-  );
+  });
 });
