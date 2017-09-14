@@ -26,6 +26,8 @@ The default is 11pm. To test locally set an environment variable `ETL_SCHEDULE` 
 
 Further details available [here](https://www.npmjs.com/package/node-schedule)
 
+The scheduler can be completely disabled by setting the `DISABLE_SCHEDULER` variable to `true`. This sets the run date to run once in the future on Jan 1st, 2100.
+
 Once initiated the scrape will download the files, strip out any records that are
 not for the current latest period (calculated based on the records), create csv
 file(s) containing those records in the output dir (`./html/json/`) and create JSON
@@ -70,7 +72,8 @@ the application is being run. This is best practice as described by
 | `AZURE_STORAGE_CONNECTION_STRING`  | Azure storage connection string                                      |                         | yes        |
 | `AZURE_TIMEOUT_MINUTES`            | Maximum wait time when uploading file to Azure                       | 10                      |            |
 | `CONTAINER_NAME`                   | Azure storage container name                                         | etl-output              |            |
-| `UPDATE_SCHEDULE`                  | time of day to run the upgrade                                       | 15 7 * * * (7:15 am)    |            |
+| `UPDATE_SCHEDULE`                  | time of day to run the scheduler                                     | 0 23 * * * (11:00 pm)   |            |
+| `DISABLE_SCHEDULER`                | set to 'true' to disable the scheduler                               | false                   |            |
 
 ## Architecture Decision Records
 
