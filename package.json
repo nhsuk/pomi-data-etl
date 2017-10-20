@@ -50,7 +50,7 @@
   "dependencies": {
     "azure-storage": "^2.4.0",
     "bunyan": "^1.8.12",
-    "csv": "^1.1.1",
+    "csv": "^2.0.0",
     "moment": "^2.18.1",
     "node-schedule": "^1.2.4",
     "require-environment-variables": "^1.1.2"
