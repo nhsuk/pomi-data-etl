@@ -1,14 +1,4 @@
-const bunyan = require('bunyan');
-
-const log = bunyan.createLogger({ name: 'pomi-etl' });
-
-function info(message) {
-  log.info(message);
-}
-
-function error(message, err) {
-  log.error(message, err);
-}
+const logger = require('nhsuk-bunyan-logger')('pomi-data-etl');
 
 function time(message) {
   // eslint-disable-next-line no-console
@@ -21,8 +11,8 @@ function timeEnd(message) {
 }
 
 module.exports = {
-  info,
-  error,
+  info: logger.info,
+  error: logger.error,
   time,
   timeEnd,
 };
