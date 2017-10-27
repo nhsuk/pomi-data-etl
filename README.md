@@ -6,9 +6,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/pomi-data-etl/badge.svg?branch=master)](https://coveralls.io/github/nhsuk/pomi-data-etl?branch=master)
 [![Known Vulnerabilities](https://snyk.io/test/github/nhsuk/pomi-data-etl/badge.svg)](https://snyk.io/test/github/nhsuk/pomi-data-etl)
 
-The application downloads a number of data sets available under POMI collection.
+> ETL to download a number of data sets available under POMI collection.
 [Patient Online Management Information (POMI)](http://content.digital.nhs.uk/pomi)
-from the NHS Digital [indicator portal](https://indicators.hscic.gov.uk/)
+from the NHS Digital [indicator portal](https://indicators.hscic.gov.uk/).
 
 The data sets used within this application are:
 
@@ -21,16 +21,23 @@ the indicator reference number i.e. P02154
 
 ## Run the application
 
-Running `scripts/start` will bring up a docker container hosting a web server and initiate the scrape at a scheduled time.
-The default is 11pm. To test locally set an environment variable `ETL_SCHEDULE` to a new time, i.e. `export ETL_SCHEDULE='25 15 * * *'` to start the processing at 3:25pm. Note: the container time is GMT and does not take account of daylight saving, you may need to subtract an hour from the time.
+Running `scripts/start` will bring up a docker container hosting a web server
+and initiate the scrape at a scheduled time.  The default is 11pm. To test
+locally set an environment variable `ETL_SCHEDULE` to a new time, i.e. `export
+ETL_SCHEDULE='25 15 * * *'` to start the processing at 3:25pm. Note: the
+container time is GMT and does not take account of daylight saving, you may
+need to subtract an hour from the time.
 
-Further details available [here](https://www.npmjs.com/package/node-schedule)
+Further details available [here](https://www.npmjs.com/package/node-schedule).
 
-The scheduler can be completely disabled by setting the `DISABLE_SCHEDULER` variable to `true`. This sets the run date to run once in the future on Jan 1st, 2100.
+The scheduler can be completely disabled by setting the `DISABLE_SCHEDULER`
+variable to `true`. This sets the run date to run once in the future on Jan
+1st, 2100.
 
-Once initiated the scrape will download the files, strip out any records that are
-not for the current latest period (calculated based on the records), create csv
-file(s) containing those records in the output dir (`./html/json/`) and create JSON
+Once initiated the scrape will download the files, strip out any records that
+are not for the current latest period (calculated based on the records), create
+csv file(s) containing those records in the output dir (`./html/json/`) and
+create JSON
 files containing an array of objects in the form of
 ```
 {
@@ -47,17 +54,21 @@ that is now using the Informatica system.
 Note: The list above was created by running
 `jq -c '[.[].Supplier] | unique ' html/json/pomi.json`
 
-Upon completion the files will also be uploaded to the Azure storage location specified in the environment variable `AZURE_STORAGE_CONNECTION_STRING`.
-Each file will be uploaded twice, once to overwrite the current file and another date-stamped file, i.e. `booking.json` and `20170530-booking.json`.
+Upon completion the files will also be uploaded to the Azure storage location
+specified in the environment variable `AZURE_STORAGE_CONNECTION_STRING`. Each
+file will be uploaded twice, once to overwrite the current file and another
+date-stamped file, i.e. `booking.json` and `20170530-booking.json`.
 
 ## Azure Blob Storage
 
-If the recommended environment variables are used the JSON file created will be available in Azure storage at 
+If the recommended environment variables are used the JSON file created will be
+available in Azure storage at:
 * [https://nhsukpomidataetl.blob.core.windows.net/etl-output/booking.json](https://nhsukpomidataetl.blob.core.windows.net/etl-output/booking.json)
 * [https://nhsukpomidataetl.blob.core.windows.net/etl-output/scripts.json](https://nhsukpomidataetl.blob.core.windows.net/etl-output/scripts.json)
 * [https://nhsukpomidataetl.blob.core.windows.net/etl-output/records.json](https://nhsukpomidataetl.blob.core.windows.net/etl-output/records.json)
 
-The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) may be used to browse the contents of blob storage.
+The [Microsoft Azure Storage Explorer](http://storageexplorer.com/) may be used
+to browse the contents of blob storage.
 
 ## Environment variables
 
