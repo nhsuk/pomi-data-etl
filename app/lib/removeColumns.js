@@ -47,7 +47,7 @@ function removeColumns(request) {
 
       writer.on('finish', () => {
         log.timeEnd(timerMsg);
-        log.info(`Records processed for ${fileType} data column removal: ${transformedCount}`);
+        log.info({ fileType, transformedCount }, `Records processed for ${fileType} data column removal: ${transformedCount}`);
         resolve({ periods, request });
       });
     } catch (err) {

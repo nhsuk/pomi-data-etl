@@ -4,7 +4,8 @@ const etl = require('./etl');
 const log = require('./app/lib/logger');
 const scheduleConfig = require('./app/lib/scheduleConfig');
 
-log.info(`Scheduling job with rule '${scheduleConfig.getSchedule()}'`);
-schedule.scheduleJob(scheduleConfig.getSchedule(), () => {
+const scheduleToRun = scheduleConfig.getSchedule();
+log.info({ schedule: scheduleToRun }, 'Scheduling job');
+schedule.scheduleJob(scheduleToRun, () => {
   etl.start();
 });
