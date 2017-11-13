@@ -1,11 +1,11 @@
 {
   "name": "pomi-data-etl",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Patient Online Management Information processing",
   "main": "runner.js",
   "scripts": {
     "coverage-check": "istanbul check-coverage --config .istanbul.yml",
-    "coverage-generate": "yarn istanbul -- cover _mocha -- --recursive test",
+    "coverage-generate": "yarn istanbul cover -- _mocha -- --recursive test",
     "coverage-upload": "cat ./coverage/lcov.info | coveralls",
     "git-hook": "yarn lint && yarn coverage-generate && yarn coverage-check",
     "istanbul": "NODE_ENV=test istanbul",
@@ -17,7 +17,7 @@
     "start": "node schedule.js",
     "test": "mocha --recursive",
     "test-ci": "yarn git-hook && yarn coverage-check && yarn coverage-upload",
-    "test-watch": "yarn test -- --watch --reporter min"
+    "test-watch": "yarn test --watch --reporter min"
   },
   "repository": {
     "type": "git",
