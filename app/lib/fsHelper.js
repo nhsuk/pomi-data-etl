@@ -23,7 +23,7 @@ function saveFileSync(data, outputDir = constants.OUTPUT_DIR) {
   const path = `${outputDir}/${fileUtils.getSimpleFileName(fileName)}`;
   createDirIfMissing(path.split('/')[0]);
   fs.writeFileSync(path, data.body, 'utf8');
-  log.info(`${path} saved`);
+  log.info({ path }, `${path} saved`);
 }
 
 module.exports = {

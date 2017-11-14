@@ -21,11 +21,11 @@ function getTimeStampedName(outputName) {
 
 async function uploadOutputToAzure(containerName, filePath, outputName) {
   const name = `${getPrefix()}${outputName}.json`;
-  log.info(`Overwriting '${name}' in Azure`);
+  log.info({ fileName: name }, `Overwriting '${name}' in Azure`);
   await azureService.uploadToAzure(containerName, filePath, name);
 
   const timeStampedName = getTimeStampedName(outputName);
-  log.info(`Saving date stamped version '${timeStampedName}' in Azure`);
+  log.info({ fileName: timeStampedName }, `Saving date stamped version '${timeStampedName}' in Azure`);
   return azureService.uploadToAzure(containerName, filePath, timeStampedName);
 }
 

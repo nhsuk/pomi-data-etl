@@ -46,8 +46,7 @@ function removeOldRecords(data) {
 
       currentRecordsWriter.on('finish', () => {
         log.timeEnd(timerMsg);
-        log.info(`Current record count: ${currentRecordCount}`);
-        log.info(`Old record count: ${oldRecordCount}`);
+        log.info({ currentRecordCount, oldRecordCount }, 'Record counts');
         resolve({ request: data.request });
       });
     } catch (err) {

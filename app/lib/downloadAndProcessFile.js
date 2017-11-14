@@ -8,7 +8,7 @@ const saveFile = require('./saveFile');
 const timer = require('./timer');
 
 function handleError(err) {
-  log.error('Processing failed', err);
+  log.error({ err }, 'Processing failed');
 }
 
 function downloadAndProcessFile(request) {
