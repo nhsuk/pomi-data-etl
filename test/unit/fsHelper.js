@@ -18,7 +18,7 @@ describe('fsHelper', () => {
       const tempFileName = 'temp';
       const data = {
         body: 'something to write to the file',
-        request: { type: tempFileName }
+        request: { type: tempFileName },
       };
       tempDir = 'temp-test-dir';
       tempFilePath = `${tempDir}/${tempFileName}.csv`;

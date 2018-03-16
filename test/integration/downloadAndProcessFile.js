@@ -39,7 +39,7 @@ describe('app', () => {
       }
 
       return Promise
-        .resolve(downloadAndProcessFile({ type: FILE_NAME, url: testFileUrl, OUTPUT_DIR }));
+        .resolve(downloadAndProcessFile({ OUTPUT_DIR, type: FILE_NAME, url: testFileUrl }));
     });
 
     it('should save the original data file', () => {

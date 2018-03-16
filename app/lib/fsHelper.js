@@ -27,6 +27,6 @@ function saveFileSync(data, outputDir = constants.OUTPUT_DIR) {
 }
 
 module.exports = {
-  saveFileSync,
   fileExists,
+  saveFileSync,
 };
