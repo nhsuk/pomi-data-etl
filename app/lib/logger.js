@@ -11,8 +11,8 @@ function timeEnd(message) {
 }
 
 module.exports = {
-  info: logger.info.bind(logger),
   error: logger.error.bind(logger),
+  info: logger.info.bind(logger),
   time,
   timeEnd,
 };

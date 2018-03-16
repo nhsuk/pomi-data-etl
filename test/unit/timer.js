@@ -5,7 +5,7 @@ const timer = require('../../app/lib/timer');
 
 describe('timer smoke tests', () => {
   it('should wrap value in timer', (done) => {
-    const value = { type: 'test', id: 123 };
+    const value = { id: 123, type: 'test' };
     const message = 'test timer';
 
     timer.start(value, message).then((result) => {

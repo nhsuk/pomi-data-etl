@@ -17,6 +17,6 @@ function end(timerMsg) {
 }
 
 module.exports = {
+  end,
   start,
-  end
 };
