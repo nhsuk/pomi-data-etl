@@ -2,6 +2,7 @@
 ==================
 - Upgrade to `eslint-config-nhsuk@0.14.0` and apply fixes
 - Update npm dependencies
+- Remove snyk
 
 0.3.0 / 2017-11-16
 ==================
