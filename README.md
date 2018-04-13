@@ -4,7 +4,6 @@
 [![Greenkeeper badge](https://badges.greenkeeper.io/nhsuk/pomi-data-etl.svg)](https://greenkeeper.io/)
 [![Build Status](https://travis-ci.org/nhsuk/pomi-data-etl.svg?branch=master)](https://travis-ci.org/nhsuk/pomi-data-etl)
 [![Coverage Status](https://coveralls.io/repos/github/nhsuk/pomi-data-etl/badge.svg?branch=master)](https://coveralls.io/github/nhsuk/pomi-data-etl?branch=master)
-[![Known Vulnerabilities](https://snyk.io/test/github/nhsuk/pomi-data-etl/badge.svg)](https://snyk.io/test/github/nhsuk/pomi-data-etl)
 
 > ETL to download a number of data sets available under POMI collection.
 [Patient Online Management Information (POMI)](http://content.digital.nhs.uk/pomi)
